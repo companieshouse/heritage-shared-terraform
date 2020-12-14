@@ -1,0 +1,33 @@
+# Account details
+aws_profile = "heritage-development-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-development"
+
+# Account shorthand
+account     = "hdev"
+region      = "euw2"
+environment = "development"
+
+
+rds_databases = {
+    bcd = {
+        instance_class          = "db.t3.medium"
+        allocated_storage       = 20
+        backup_retention_period = 2
+        multi_az                = false
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v21"
+        license_model           = "license-included"
+    },
+    chdata = {
+        instance_class          = "db.t3.medium"
+        allocated_storage       = 20
+        backup_retention_period = 2
+        multi_az                = false
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v21"
+        license_model           = "license-included"
+    }
+}
