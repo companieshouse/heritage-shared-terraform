@@ -8,15 +8,25 @@ account     = "hstg"
 region      = "euw2"
 environment = "staging"
 
-# RDS Instance settings
-instance_class = "db.m5.large"
-allocated_storage = 250
-maximum_storage   = 300
-backup_retention_period = 7
-multi_az = true
-
-# RDS Engine settings
-engine               = "oracle-se2"
-major_engine_version = "12.1"
-engine_version       = "12.1.0.2.v21"
-license_model        = "license-included"
+rds_databases = {
+    bcd = {
+        instance_class          = "db.m5.large"
+        allocated_storage       = 50
+        backup_retention_period = 2
+        multi_az                = false
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v21"
+        license_model           = "license-included"
+    },
+    chdata = {
+        instance_class          = "db.m5.large"
+        allocated_storage       = 20
+        backup_retention_period = 2
+        multi_az                = false
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v21"
+        license_model           = "license-included"
+    }
+}

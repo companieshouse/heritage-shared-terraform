@@ -8,11 +8,10 @@ account     = "hdev"
 region      = "euw2"
 environment = "development"
 
-
 rds_databases = {
     bcd = {
         instance_class          = "db.t3.medium"
-        allocated_storage       = 20
+        allocated_storage       = 15
         backup_retention_period = 2
         multi_az                = false
         engine                  = "oracle-se2"
@@ -22,7 +21,7 @@ rds_databases = {
     },
     chdata = {
         instance_class          = "db.t3.medium"
-        allocated_storage       = 20
+        allocated_storage       = 5
         backup_retention_period = 2
         multi_az                = false
         engine                  = "oracle-se2"
