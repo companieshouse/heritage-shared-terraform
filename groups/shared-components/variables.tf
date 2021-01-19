@@ -45,54 +45,10 @@ variable "rds_databases" {
   type        = map
 }
 
-# variable "instance_class" {
-#   type        = string
-#   description = "The type of instance for the RDS"
-#   default     = "db.t3.medium"
-# }
-
-# variable "multi_az" {
-#   type        = bool
-#   description = "Whether the RDS is Multi-AZ"
-#   default     = false
-# }
-
-# variable "backup_retention_period" {
-#   type        = number
-#   description = "The number of days to retain backups for - 0 to 35"
-# }
-
-# variable "allocated_storage" {
-#   type        = number
-#   description = "The amount of storage in GB to launch RDS with"
-# }
-
-# variable "maximum_storage" {
-#   type        = number
-#   description = "The maximum storage in GB to allow RDS to scale to"
-# }
-
-# ------------------------------------------------------------------------------
-# RDS Engine Type Variables
-# ------------------------------------------------------------------------------
-
-# variable "engine" {
-#   type        = string
-#   description = "Engine type to be used for the RDS Instance (Database vendor) e.g. oracle-se2"
-# }
-
-# variable "major_engine_version" {
-#   type        = string
-#   description = "The major version of the database engine type e.g. 12.1"
-# }
-# variable "engine_version" {
-#   type        = string
-#   description = "The engine version provided by AWS RDS e.g. 12.1.0.2.v21"
-# }
-# variable "license_model" {
-#   type        = string
-#   description = "The license model for the engine, byol or license-include: https://aws.amazon.com/rds/oracle/faqs/"
-# }
+variable "parameter_group_settings" {
+  type        = list(any)
+  description = "A list of parameters that will be set in the RDS instance parameter group"
+}
 
 # ------------------------------------------------------------------------------
 # Vault Variables
