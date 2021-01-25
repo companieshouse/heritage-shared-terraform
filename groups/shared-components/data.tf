@@ -12,6 +12,13 @@ data "aws_subnet_ids" "data" {
   }
 }
 
+data "aws_security_group" "rds_shared" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-rds-shared-001*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
