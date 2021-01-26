@@ -1,0 +1,105 @@
+# Account details
+aws_profile = "heritage-staging-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-staging"
+
+# Account shorthand
+account     = "hstg"
+region      = "euw2"
+environment = "staging"
+
+rds_databases = {
+    bcd = {
+        instance_class          = "db.m5.large"
+        allocated_storage       = 50
+        backup_retention_period = 2
+        multi_az                = true
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v22"
+        license_model           = "license-included"
+    },
+    chdata = {
+        instance_class          = "db.m5.large"
+        allocated_storage       = 20
+        backup_retention_period = 2
+        multi_az                = true
+        engine                  = "oracle-se2"
+        major_engine_version    = "12.1"
+        engine_version          = "12.1.0.2.v22"
+        license_model           = "license-included"
+    }
+}
+
+# RDS Param and Option settings
+parameter_group_settings = [
+    {
+      name  = "aq_tm_processes"
+      value = "6"
+    },
+    {
+      name  = "sec_case_sensitive_logon"
+      value = "TRUE"
+    },
+    {
+      name         = "compatible"
+      value        = "12.1.0.2.0"
+      apply_method = "pending-reboot"
+    },      
+    {
+      name  = "db_file_multiblock_read_count"
+      value = "64"
+    },
+    {
+      name  = "job_queue_processes"
+      value = "1000"
+    },
+    {
+      name  = "nls_length_semantics"
+      value = "CHAR"
+    },
+    {
+      name  = "open_cursors"
+      value = "3000"
+    },
+    {
+      name  = "parallel_max_servers"
+      value = "20"
+    },
+    {
+      name  = "parallel_min_servers"
+      value = "10"
+    },
+    {
+      name         = "pga_aggregate_limit"
+      value        = "2147483648"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "processes"
+      value        = "4400"
+      apply_method = "pending-reboot"
+    },
+    {
+      name  = "remote_dependencies_mode"
+      value = "SIGNATURE"
+    },
+    {
+      name         = "sessions"
+      value        = "6720"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "timed_statistics"
+      value        = "TRUE"
+      apply_method = "pending-reboot"
+    },
+    {
+      name  = "undo_retention"
+      value = "900"
+    },
+    {
+      name  = "workarea_size_policy"
+      value = "AUTO"
+    },
+]
