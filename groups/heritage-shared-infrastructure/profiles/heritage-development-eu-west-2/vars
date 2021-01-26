@@ -11,7 +11,7 @@ environment = "development"
 rds_databases = {
     bcd = {
         instance_class          = "db.t3.medium"
-        allocated_storage       = 15
+        allocated_storage       = 20
         backup_retention_period = 2
         multi_az                = false
         engine                  = "oracle-se2"
@@ -21,7 +21,7 @@ rds_databases = {
     },
     chdata = {
         instance_class          = "db.t3.medium"
-        allocated_storage       = 5
+        allocated_storage       = 20
         backup_retention_period = 2
         multi_az                = false
         engine                  = "oracle-se2"
