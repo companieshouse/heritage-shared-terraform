@@ -1,0 +1,10 @@
+# Mac files
+.DS_Store
+._*
+
+# Terraform local state
+.terraform
+
+# Local Terraform workspace data
+terraform.tfstate.backup
+terraform.tfstate.d
