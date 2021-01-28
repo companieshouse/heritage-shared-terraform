@@ -8,6 +8,7 @@ account     = "hdev"
 region      = "euw2"
 environment = "development"
 
+
 rds_databases = {
     bcd = {
         instance_class          = "db.t3.medium"
@@ -30,6 +31,11 @@ rds_databases = {
         license_model           = "license-included"
     }
 }
+
+# RDS Access
+rds_onpremise_access = [
+  "192.168.90.0/24"
+]
 
 # RDS Param and Option settings
 parameter_group_settings = [

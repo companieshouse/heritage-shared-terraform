@@ -50,6 +50,12 @@ variable "parameter_group_settings" {
   description = "A list of parameters that will be set in the RDS instance parameter group"
 }
 
+variable "rds_onpremise_access" {
+  type        = list(any)
+  description = "A list of cidr ranges that will be allowed access to RDS"
+  default     = []
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------
