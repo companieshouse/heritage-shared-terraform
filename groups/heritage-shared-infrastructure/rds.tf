@@ -22,8 +22,8 @@ module "rds_security_group" {
       cidr_blocks = join(",", local.rds_ingress_cidrs)
     }
   ]
-  
-  egress_rules        = ["all-all"]
+
+  egress_rules = ["all-all"]
 }
 
 # ------------------------------------------------------------------------------
@@ -31,26 +31,26 @@ module "rds_security_group" {
 # ------------------------------------------------------------------------------
 module "rds" {
   for_each = var.rds_databases
-  
+
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 2.0"
 
   create_db_parameter_group = "true"
   create_db_subnet_group    = "true"
 
-  identifier           = join("-", ["rds", each.key, var.environment, "001"])
-  engine               = lookup(each.value, "engine", "oracle-se2")
-  major_engine_version = lookup(each.value, "major_engine_version", "12.1")
-  engine_version       = lookup(each.value, "engine_version", "12.1.0.2.v21")
-  auto_minor_version_upgrade = lookup(each.value, "auto_minor_version_upgrade", false)  
-  license_model        = lookup(each.value, "license_model", "license-included")
-  instance_class       = lookup(each.value, "instance_class", "db.t3.medium")
-  allocated_storage    = lookup(each.value, "allocated_storage", 20)
-  storage_type         = lookup(each.value, "storage_type", null)
-  iops                 = lookup(each.value, "iops", null)
-  multi_az             = lookup(each.value, "multi_az", false)
-  storage_encrypted    = true
-  kms_key_id           = data.aws_kms_key.rds.arn
+  identifier                 = join("-", ["rds", each.key, var.environment, "001"])
+  engine                     = lookup(each.value, "engine", "oracle-se2")
+  major_engine_version       = lookup(each.value, "major_engine_version", "12.1")
+  engine_version             = lookup(each.value, "engine_version", "12.1.0.2.v21")
+  auto_minor_version_upgrade = lookup(each.value, "auto_minor_version_upgrade", false)
+  license_model              = lookup(each.value, "license_model", "license-included")
+  instance_class             = lookup(each.value, "instance_class", "db.t3.medium")
+  allocated_storage          = lookup(each.value, "allocated_storage", 20)
+  storage_type               = lookup(each.value, "storage_type", null)
+  iops                       = lookup(each.value, "iops", null)
+  multi_az                   = lookup(each.value, "multi_az", false)
+  storage_encrypted          = true
+  kms_key_id                 = data.aws_kms_key.rds.arn
 
   name     = upper(each.key)
   username = local.rds_data[each.key]["admin-username"]
@@ -69,7 +69,7 @@ module "rds" {
   monitoring_role_arn = data.aws_iam_role.rds_enhanced_monitoring.arn
 
   # RDS Security Group
-  vpc_security_group_ids = [ 
+  vpc_security_group_ids = [
     module.rds_security_group[each.key].this_security_group_id,
     data.aws_security_group.rds_shared.id
   ]

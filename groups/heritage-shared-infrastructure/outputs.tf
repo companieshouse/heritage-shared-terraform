@@ -4,7 +4,7 @@ output "rds_addresses" {
 
 output "rds_endpoints" {
   value = { for db, settings in var.rds_databases : db => module.rds[db].this_db_instance_address }
-  
+
 }
 
 output "rds_database_names" {
