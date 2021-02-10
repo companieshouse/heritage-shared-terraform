@@ -1,6 +1,6 @@
 resource "aws_route53_record" "rds" {
   for_each = var.rds_databases
-  
+
   zone_id = data.aws_route53_zone.private_zone.zone_id
   name    = format("%s%s", each.key, "db")
   type    = "CNAME"

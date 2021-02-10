@@ -42,7 +42,7 @@ variable "environment" {
 # RDS Variables
 # ------------------------------------------------------------------------------
 variable "rds_databases" {
-  type        = map
+  type = map
 }
 
 variable "parameter_group_settings" {

@@ -11,24 +11,26 @@ environment = "development"
 
 rds_databases = {
     bcd = {
-        instance_class          = "db.t3.medium"
-        allocated_storage       = 20
-        backup_retention_period = 2
-        multi_az                = false
-        engine                  = "oracle-se2"
-        major_engine_version    = "12.1"
-        engine_version          = "12.1.0.2.v22"
-        license_model           = "license-included"
+        instance_class             = "db.t3.medium"
+        allocated_storage          = 20
+        backup_retention_period    = 2
+        multi_az                   = false
+        engine                     = "oracle-se2"
+        major_engine_version       = "12.1"
+        engine_version             = "12.1.0.2.v22"
+        auto_minor_version_upgrade = true
+        license_model              = "license-included"
     },
     chdata = {
-        instance_class          = "db.t3.medium"
-        allocated_storage       = 20
-        backup_retention_period = 2
-        multi_az                = false
-        engine                  = "oracle-se2"
-        major_engine_version    = "12.1"
-        engine_version          = "12.1.0.2.v22"
-        license_model           = "license-included"
+        instance_class             = "db.t3.medium"
+        allocated_storage          = 20
+        backup_retention_period    = 2
+        multi_az                   = false
+        engine                     = "oracle-se2"
+        major_engine_version       = "12.1"
+        engine_version             = "12.1.0.2.v22"
+        auto_minor_version_upgrade = true
+        license_model              = "license-included"
     }
 }
 
