@@ -58,8 +58,8 @@ module "rds" {
   port     = "1521"
 
   deletion_protection       = true
-  maintenance_window        = "Mon:00:00-Mon:03:00"
-  backup_window             = "03:00-06:00"
+  maintenance_window        = lookup(each.value, "rds_maintenance_window", "Mon:00:00-Mon:03:00")
+  backup_window             = lookup(each.value, "rds_backup_window", "03:00-06:00")
   backup_retention_period   = lookup(each.value, "backup_retention_period", 7)
   skip_final_snapshot       = "false"
   final_snapshot_identifier = "${each.key}-final-deletion-snapshot"
