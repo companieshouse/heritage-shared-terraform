@@ -22,6 +22,13 @@ rds_databases = {
         license_model              = "license-included"
         rds_maintenance_window     = "Thu:00:00-Thu:03:00"
         rds_backup_window          = "03:00-06:00"
+        rds_log_exports            = [
+              "alert",
+              "audit",
+              "listener",
+              "trace",
+              "agent"
+        ]
     },
     chdata = {
         instance_class             = "db.t3.medium"
@@ -35,6 +42,13 @@ rds_databases = {
         license_model              = "license-included"
         rds_maintenance_window     = "Thu:00:00-Thu:03:00"
         rds_backup_window          = "03:00-06:00"
+        rds_log_exports            = [
+              "alert",
+              "audit",
+              "listener",
+              "trace",
+              "agent"
+        ]
     }
 }
 
@@ -42,6 +56,8 @@ rds_databases = {
 rds_onpremise_access = [
   "192.168.90.0/24"
 ]
+
+
 
 # RDS Param and Option settings
 parameter_group_settings = [

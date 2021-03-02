@@ -65,8 +65,9 @@ module "rds" {
   final_snapshot_identifier = "${each.key}-final-deletion-snapshot"
 
   # Enhanced Monitoring
-  monitoring_interval = "30"
-  monitoring_role_arn = data.aws_iam_role.rds_enhanced_monitoring.arn
+  monitoring_interval             = "30"
+  monitoring_role_arn             = data.aws_iam_role.rds_enhanced_monitoring.arn
+  enabled_cloudwatch_logs_exports = lookup(each.value, "rds_log_exports", null)
 
   # RDS Security Group
   vpc_security_group_ids = [
