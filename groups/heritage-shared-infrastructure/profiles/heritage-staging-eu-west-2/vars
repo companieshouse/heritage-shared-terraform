@@ -25,8 +25,7 @@ rds_databases = {
               "alert",
               "audit",
               "listener",
-              "trace",
-              "agent"
+              "trace"
         ]
     },
     chdata = {
@@ -45,8 +44,7 @@ rds_databases = {
               "alert",
               "audit",
               "listener",
-              "trace",
-              "agent"
+              "trace"
         ]
     }
 }
