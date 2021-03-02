@@ -58,15 +58,16 @@ module "rds" {
   port     = "1521"
 
   deletion_protection       = true
-  maintenance_window        = "Mon:00:00-Mon:03:00"
-  backup_window             = "03:00-06:00"
+  maintenance_window        = lookup(each.value, "rds_maintenance_window", "Mon:00:00-Mon:03:00")
+  backup_window             = lookup(each.value, "rds_backup_window", "03:00-06:00")
   backup_retention_period   = lookup(each.value, "backup_retention_period", 7)
   skip_final_snapshot       = "false"
   final_snapshot_identifier = "${each.key}-final-deletion-snapshot"
 
   # Enhanced Monitoring
-  monitoring_interval = "30"
-  monitoring_role_arn = data.aws_iam_role.rds_enhanced_monitoring.arn
+  monitoring_interval             = "30"
+  monitoring_role_arn             = data.aws_iam_role.rds_enhanced_monitoring.arn
+  enabled_cloudwatch_logs_exports = lookup(each.value, "rds_log_exports", null)
 
   # RDS Security Group
   vpc_security_group_ids = [
