@@ -19,6 +19,20 @@ data "aws_security_group" "rds_shared" {
   }
 }
 
+data "aws_security_group" "xml_fe_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-xml-fe-asg*"]
+  }
+}
+
+data "aws_security_group" "xml_bep_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-xml-bep-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
