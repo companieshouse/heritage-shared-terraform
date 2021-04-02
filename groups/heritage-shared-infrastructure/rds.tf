@@ -85,6 +85,10 @@ module "rds" {
   monitoring_role_arn             = data.aws_iam_role.rds_enhanced_monitoring.arn
   enabled_cloudwatch_logs_exports = lookup(each.value, "rds_log_exports", null)
 
+  performance_insights_enabled          = var.environment == "live" ? true : false
+  performance_insights_kms_key_id       = data.aws_kms_key.rds.arn
+  performance_insights_retention_period = 7
+
   # RDS Security Group
   vpc_security_group_ids = [
     module.rds_security_group[each.key].this_security_group_id,
