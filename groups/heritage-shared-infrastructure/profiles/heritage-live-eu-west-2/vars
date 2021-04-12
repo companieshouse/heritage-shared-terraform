@@ -46,6 +46,25 @@ rds_databases = {
               "listener",
               "trace"
         ]
+    },
+    sess = {
+        instance_class             = "db.m5.4xlarge"
+        allocated_storage          = 40
+        backup_retention_period    = 2
+        multi_az                   = true
+        engine                     = "oracle-se2"
+        major_engine_version       = "12.1"
+        engine_version             = "12.1.0.2.v22"
+        auto_minor_version_upgrade = true
+        license_model              = "license-included"
+        rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+        rds_backup_window          = "03:00-06:00"
+        rds_log_exports            = [
+              "alert",
+              "audit",
+              "listener",
+              "trace"
+        ]
     }
 }
 
