@@ -26,6 +26,10 @@ rds_databases = {
               "audit",
               "listener",
               "trace"
+        ],
+        rds_onpremise_access = [
+          "192.168.90.0/24",
+          "192.168.70.0/24"
         ]
     },
     chdata = {
@@ -45,6 +49,10 @@ rds_databases = {
               "audit",
               "listener",
               "trace"
+        ],
+        rds_onpremise_access = [
+          "192.168.90.0/24",
+          "192.168.70.0/24"
         ]
     },
     sess = {
@@ -64,15 +72,22 @@ rds_databases = {
               "audit",
               "listener",
               "trace"
+        ],
+        rds_onpremise_access = [
+          "10.55.2.0/24",
+          "10.55.66.0/24",
+          "10.55.130.0/24",
+          "172.24.4.17/32",
+          "192.168.70.0/24"
+          "192.168.90.0/24",
+          "192.168.60.130/32", 
+          "192.168.60.131/32", 
+          "192.168.60.132/32", 
+          "192.168.60.133/32", 
+          "192.168.60.134/32"
         ]
     }
 }
-
-# RDS Access
-rds_onpremise_access = [
-  "192.168.90.0/24",
-  "192.168.70.0/24"
-]
 
 # RDS Param and Option settings
 parameter_group_settings = [
