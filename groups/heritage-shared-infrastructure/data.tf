@@ -33,6 +33,20 @@ data "aws_security_group" "xml_bep_asg" {
   }
 }
 
+data "aws_security_group" "ewf_fe_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-ewf-fe-asg*"]
+  }
+}
+
+data "aws_security_group" "ewf_bep_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-ewf-bep-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
@@ -52,6 +66,10 @@ data "vault_generic_secret" "bcd_rds" {
 
 data "vault_generic_secret" "chdata_rds" {
   path = "applications/${var.aws_profile}/chdata/rds"
+}
+
+data "vault_generic_secret" "sess_rds" {
+  path = "applications/${var.aws_profile}/sess/rds"
 }
 
 data "vault_generic_secret" "internal_cidrs" {
