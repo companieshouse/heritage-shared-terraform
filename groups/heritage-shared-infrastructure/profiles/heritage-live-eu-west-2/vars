@@ -33,7 +33,7 @@ rds_databases = {
         ]
     },
     chdata = {
-        instance_class             = "db.m5.xlarge"
+        instance_class             = "db.m5.2xlarge"
         allocated_storage          = 40
         backup_retention_period    = 2
         multi_az                   = true
