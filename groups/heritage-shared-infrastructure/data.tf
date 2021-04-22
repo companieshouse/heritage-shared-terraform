@@ -26,6 +26,13 @@ data "aws_security_group" "xml_fe_asg" {
   }
 }
 
+data "aws_security_group" "xml_fe_tux" {
+  filter {
+    name   = "tag:Name"
+    values = ["xml-frontend-tuxedo-${var.environment}"]
+  }
+}
+
 data "aws_security_group" "xml_bep_asg" {
   filter {
     name   = "group-name"
@@ -37,6 +44,13 @@ data "aws_security_group" "ewf_fe_asg" {
   filter {
     name   = "group-name"
     values = ["sgr-ewf-fe-asg*"]
+  }
+}
+
+data "aws_security_group" "ewf_fe_tux" {
+  filter {
+    name   = "tag:Name"
+    values = ["ewf-frontend-tuxedo-${var.environment}"]
   }
 }
 
