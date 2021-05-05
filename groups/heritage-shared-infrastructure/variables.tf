@@ -50,9 +50,9 @@ variable "parameter_group_settings" {
   description = "A list of parameters that will be set in the RDS instance parameter group"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Vault Variables
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 variable "vault_username" {
   type        = string
   description = "Username for connecting to Vault - usually supplied through TF_VARS"
