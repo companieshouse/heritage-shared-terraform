@@ -88,7 +88,7 @@ module "rds" {
 
   parameters = var.parameter_group_settings
 
-  options = [
+  options = concat([
     {
       option_name                    = "OEM"
       port                           = "5500"
@@ -107,7 +107,7 @@ module "rds" {
         },
       ]
     },
-  ]
+  ], each.value.per_instance_options)
 
   timeouts = {
     "create" : "80m",
