@@ -51,7 +51,7 @@ module "sessions_rds" {
   create_db_parameter_group = "true"
   create_db_subnet_group    = "true"
 
-  identifier                 = join("-", ["rds", var.name, var.environment, "001"])
+  identifier                 = join("-", ["rds", var.identifier, var.environment, "001"])
   engine                     = "oracle-se2"
   major_engine_version       = var.major_engine_version
   engine_version             = var.engine_version
@@ -75,7 +75,7 @@ module "sessions_rds" {
   backup_window             = var.rds_backup_window
   backup_retention_period   = var.backup_retention_period
   skip_final_snapshot       = "false"
-  final_snapshot_identifier = "${var.name}-final-deletion-snapshot"
+  final_snapshot_identifier = "${var.identifier}-final-deletion-snapshot"
 
   # Enhanced Monitoring
   monitoring_interval             = "30"
@@ -139,7 +139,7 @@ module "sessions_rds" {
   tags = merge(
     local.default_tags,
     map(
-      "ServiceTeam", "${upper(var.name)}-DBA-Support"
+      "ServiceTeam", "${upper(var.identifier)}-DBA-Support"
     )
   )
 }

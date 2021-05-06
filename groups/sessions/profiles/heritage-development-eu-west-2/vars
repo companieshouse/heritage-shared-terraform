@@ -9,13 +9,14 @@ region      = "euw2"
 environment = "development"
 
 # RDS Instance settings
-name                     = "sessions"
-instance_class           = "db.t3.medium"
-allocated_storage        = 20
-backup_retention_period  = 2
-multi_az                 = false
-rds_maintenance_window   = "Thu:00:00-Thu:03:00"
-rds_backup_window        = "03:00-06:00"
+identifier              = "sessions"
+name                    = "sess"
+instance_class          = "db.t3.medium"
+allocated_storage       = 20
+backup_retention_period = 2
+multi_az                = false
+rds_maintenance_window  = "Thu:00:00-Thu:03:00"
+rds_backup_window       = "03:00-06:00"
 
 # RDS Engine settings
 major_engine_version       = "12.1"

@@ -41,9 +41,14 @@ variable "environment" {
 # ------------------------------------------------------------------------------
 # RDS Variables
 # ------------------------------------------------------------------------------
+variable "identifier" {
+  type        = string
+  description = "Name to give to the instances and other components created for it, will be added to naming structure e.g. sessions will become rds-sessions-<env>-001"
+}
+
 variable "name" {
   type        = string
-  description = "Name to give to the database and other components created for it, will be added to naming structure e.g. sessions will become rds-sessions-<env>-001"
+  description = "Name to give to the database created on the RDS Instance"
 }
 
 variable "multi_az" {
