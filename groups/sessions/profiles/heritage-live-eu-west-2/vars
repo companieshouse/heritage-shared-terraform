@@ -11,8 +11,10 @@ environment = "live"
 # RDS Instance settings
 identifier              = "sessions"
 name                    = "sess"
-instance_class          = "db.m5.2xlarge"
-allocated_storage       = 1666
+instance_class          = "db.m5.4xlarge"
+allocated_storage       = 100
+storage_type            = "io1"
+iops                    = 5000
 backup_retention_period = 7
 multi_az                = true
 rds_maintenance_window  = "Wed:00:00-Wed:03:00"
