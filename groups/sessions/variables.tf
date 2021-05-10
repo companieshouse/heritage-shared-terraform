@@ -97,7 +97,7 @@ variable "allocated_storage" {
 variable "iops" {
   type        = number
   description = "Total number of IOPS to provision, requires storage type to be set to io1, there is a minimum of 1000 IOPS and 100GB storage required for Provisioned IOPS"
-  default     = 1000
+  default     = null
 }
 
 # ------------------------------------------------------------------------------
