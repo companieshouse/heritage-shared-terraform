@@ -32,7 +32,17 @@ rds_databases = {
         "192.168.70.0/24",
         "192.168.60.0/24"
       ]
-      per_instance_options = []
+      per_instance_options = [
+        {
+          option_name = "Timezone"
+          option_settings = [
+            {
+              name  = "TIME_ZONE"
+              value = "Europe/London"
+            },
+          ]
+        },
+      ]
     },
     chdata = {
       instance_class             = "db.m5.2xlarge"
@@ -56,7 +66,17 @@ rds_databases = {
         "192.168.90.0/24",
         "192.168.70.0/24"
       ]
-      per_instance_options = []
+      per_instance_options = [
+        {
+          option_name = "Timezone"
+          option_settings = [
+            {
+              name  = "TIME_ZONE"
+              value = "Europe/London"
+            },
+          ]
+        },
+      ]
     },
     sess = {
       instance_class             = "db.m5.4xlarge"
@@ -89,7 +109,17 @@ rds_databases = {
         "192.168.60.133/32", 
         "192.168.60.134/32"
       ]
-      per_instance_options = []
+      per_instance_options = [
+        {
+          option_name = "Timezone"
+          option_settings = [
+            {
+              name  = "TIME_ZONE"
+              value = "Europe/London"
+            },
+          ]
+        },
+      ]
     }
 }
 

@@ -1,5 +1,5 @@
 resource "aws_route53_record" "rds" {
-  for_each = var.rds_databases
+  for_each = { for key, database in var.rds_databases : key => database if key != "sess" }
 
   zone_id = data.aws_route53_zone.private_zone.zone_id
   name    = format("%s%s", each.key, "db")
