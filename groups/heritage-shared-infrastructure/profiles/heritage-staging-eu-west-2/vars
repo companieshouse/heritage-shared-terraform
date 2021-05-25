@@ -9,110 +9,74 @@ region      = "euw2"
 environment = "staging"
 
 rds_databases = {
-    bcd = {
-      instance_class             = "db.m5.large"
-      allocated_storage          = 50
-      backup_retention_period    = 2
-      multi_az                   = true
-      engine                     = "oracle-se2"
-      major_engine_version       = "12.1"
-      engine_version             = "12.1.0.2.v23"
-      auto_minor_version_upgrade = true
-      license_model              = "license-included"
-      rds_maintenance_window     = "Sun:00:00-Sun:03:00"
-      rds_backup_window          = "03:00-06:00"
-      rds_log_exports            = [
-            "alert",
-            "audit",
-            "listener",
-            "trace"
-      ],
-      rds_onpremise_access = [
-        "192.168.90.0/24",
-        "192.168.70.0/24"
-      ]
-      per_instance_options = [
-        {
-          option_name = "Timezone"
-          option_settings = [
-            {
-              name  = "TIME_ZONE"
-              value = "Europe/London"
-            },
-          ]
-        },
-      ]
-    },
-    chdata = {
-      instance_class             = "db.m5.large"
-      allocated_storage          = 30
-      backup_retention_period    = 2
-      multi_az                   = true
-      engine                     = "oracle-se2"
-      major_engine_version       = "12.1"
-      engine_version             = "12.1.0.2.v23"
-      auto_minor_version_upgrade = true
-      license_model              = "license-included"
-      rds_maintenance_window     = "Sun:00:00-Sun:03:00"
-      rds_backup_window          = "03:00-06:00"
-      rds_log_exports            = [
-            "alert",
-            "audit",
-            "listener",
-            "trace"
-      ],
-      rds_onpremise_access = [
-        "192.168.90.0/24",
-        "192.168.70.0/24"
-      ]
-      per_instance_options = [
-        {
-          option_name = "Timezone"
-          option_settings = [
-            {
-              name  = "TIME_ZONE"
-              value = "Europe/London"
-            },
-          ]
-        },
-      ]
-    },
-    sess = {
-      instance_class             = "db.m5.large"
-      allocated_storage          = 30
-      backup_retention_period    = 2
-      multi_az                   = true
-      engine                     = "oracle-se2"
-      major_engine_version       = "12.1"
-      engine_version             = "12.1.0.2.v23"
-      auto_minor_version_upgrade = true
-      license_model              = "license-included"
-      rds_maintenance_window     = "Sun:00:00-Sun:03:00"
-      rds_backup_window          = "03:00-06:00"
-      rds_log_exports            = [
-            "alert",
-            "audit",
-            "listener",
-            "trace"
-      ],
-      rds_onpremise_access = [
-        "10.65.2.0/24",
-        "10.65.66.0/24",
-        "10.65.130.0/24",
-        "192.168.70.0/24",
-        "192.168.90.0/24"
-      ]
-      per_instance_options = [
-        {
-          option_name = "Timezone"
-          option_settings = [
-            {
-              name  = "TIME_ZONE"
-              value = "Europe/London"
-            },
-          ]
-        },
-      ]    }
+  bcd = {
+    instance_class             = "db.m5.large"
+    allocated_storage          = 50
+    backup_retention_period    = 2
+    multi_az                   = true
+    engine                     = "oracle-se2"
+    major_engine_version       = "12.1"
+    engine_version             = "12.1.0.2.v23"
+    auto_minor_version_upgrade = true
+    license_model              = "license-included"
+    rds_maintenance_window     = "Sun:00:00-Sun:03:00"
+    rds_backup_window          = "03:00-06:00"
+    rds_log_exports            = [
+          "alert",
+          "audit",
+          "listener",
+          "trace"
+    ],
+    rds_onpremise_access = [
+      "192.168.90.0/24",
+      "192.168.70.0/24"
+    ]
+    per_instance_options = [
+      {
+        option_name = "Timezone"
+        option_settings = [
+          {
+            name  = "TIME_ZONE"
+            value = "Europe/London"
+          },
+        ]
+      },
+    ]
+  },
+  chdata = {
+    instance_class             = "db.m5.large"
+    allocated_storage          = 30
+    backup_retention_period    = 2
+    multi_az                   = true
+    engine                     = "oracle-se2"
+    major_engine_version       = "12.1"
+    engine_version             = "12.1.0.2.v23"
+    auto_minor_version_upgrade = true
+    license_model              = "license-included"
+    rds_maintenance_window     = "Sun:00:00-Sun:03:00"
+    rds_backup_window          = "03:00-06:00"
+    rds_log_exports            = [
+          "alert",
+          "audit",
+          "listener",
+          "trace"
+    ],
+    rds_onpremise_access = [
+      "192.168.90.0/24",
+      "192.168.70.0/24"
+    ]
+    per_instance_options = [
+      {
+        option_name = "Timezone"
+        option_settings = [
+          {
+            name  = "TIME_ZONE"
+            value = "Europe/London"
+          },
+        ]
+      },
+    ]
+  }
 }
 
 # RDS Param and Option settings
