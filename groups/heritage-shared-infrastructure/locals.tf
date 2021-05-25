@@ -47,6 +47,13 @@ locals {
         protocol                 = "tcp"
         description              = "Backend EWF"
         source_security_group_id = data.aws_security_group.ewf_bep_asg.id
+      },
+      {
+        from_port                = 1521
+        to_port                  = 1521
+        protocol                 = "tcp"
+        description              = "Frontend EWF"
+        source_security_group_id = data.aws_security_group.ewf_fe_asg.id
       }
     ],
     "chdata" = [
