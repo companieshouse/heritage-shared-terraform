@@ -86,6 +86,10 @@ data "vault_generic_secret" "chd_rds" {
   path = "applications/${var.aws_profile}/chd/rds"
 }
 
+data "vault_generic_secret" "wck_rds" {
+  path = "applications/${var.aws_profile}/wck/rds"
+}
+
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
