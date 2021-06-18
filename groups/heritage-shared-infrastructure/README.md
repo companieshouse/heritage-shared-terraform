@@ -1,6 +1,12 @@
 # Heritage Shared Resources 
 
-Currently hosts BCD and CHData RDS instances as these are shared across multiple services.
+Hosts the following RDS instances as these are shared across multiple services.
+* BCD
+* CHData
+* CHD
+* WCK
+* CICS
+* FES
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
