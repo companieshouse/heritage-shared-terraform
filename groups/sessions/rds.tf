@@ -35,6 +35,13 @@ module "rds_security_group" {
       protocol                 = "tcp"
       description              = "Backend EWF"
       source_security_group_id = data.aws_security_group.ewf_bep_asg.id
+    },
+    {
+      from_port                = 1521
+      to_port                  = 1521
+      protocol                 = "tcp"
+      description              = "Frontend Admin sites"
+      source_security_group_id = data.aws_security_group.adminsites.id
     }
   ]
 

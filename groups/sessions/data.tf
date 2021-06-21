@@ -33,6 +33,13 @@ data "aws_security_group" "ewf_bep_asg" {
   }
 }
 
+data "aws_security_group" "adminsites" {
+  filter {
+    name   = "tag:Name"
+    values = ["sgr-admin-sites-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
