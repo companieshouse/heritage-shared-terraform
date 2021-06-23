@@ -79,7 +79,7 @@ rds_databases = {
     ]
   },
   chd = {
-    instance_class             = "db.m5.xlarge"
+    instance_class             = "db.m5.large"
     allocated_storage          = 40
     backup_retention_period    = 2
     multi_az                   = true
@@ -113,7 +113,7 @@ rds_databases = {
     ]
   },
   wck = {
-    instance_class             = "db.m5.xlarge"
+    instance_class             = "db.m5.large"
     allocated_storage          = 40
     backup_retention_period    = 2
     multi_az                   = true
