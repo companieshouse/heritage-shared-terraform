@@ -109,9 +109,9 @@ data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
 
-################
-# CHD BEP
-################
+# ------------------------------------------------------------------------------
+# CHD BEP Data
+# ------------------------------------------------------------------------------
 data "aws_caller_identity" "current" {}
 
 data "aws_subnet_ids" "application" {
