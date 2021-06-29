@@ -193,6 +193,7 @@ locals {
 
 #  chd_bep_data = data.vault_generic_secret.chd_bep_data.data_json
   chd_ec2_data = data.vault_generic_secret.chd_ec2_data.data
+  s3_releases  = data.vault_generic_secret.s3_releases.data
 
   kms_keys_data          = data.vault_generic_secret.kms_keys.data
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
