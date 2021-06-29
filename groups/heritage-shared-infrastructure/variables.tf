@@ -110,7 +110,7 @@ variable "bep_app_release_version" {
 
 variable "bep_ami_name" {
   type        = string
-  default     = "ceu-backend-*"
+  default     = "chd-backend-*"
   description = "Name of the AMI to use in the Auto Scaling configuration for backend server(s)"
 }
 
