@@ -34,9 +34,9 @@ resource "aws_cloudwatch_log_group" "chd_bep" {
   )
 }
 
-# ASG Scheduled Shutdown for non-production
+# ASG Scheduled Shutdown
 resource "aws_autoscaling_schedule" "bep-schedule-stop" {
-  count = var.environment == "live" ? 0 : 1
+  count = var.bep_schedule_stop ? 1 : 0
 
   scheduled_action_name  = "${var.aws_account}-${var.application}-bep-scheduled-shutdown"
   min_size               = 0
@@ -46,9 +46,9 @@ resource "aws_autoscaling_schedule" "bep-schedule-stop" {
   autoscaling_group_name = module.bep_asg.this_autoscaling_group_name
 }
 
-# ASG Scheduled Shutdown for non-production
+# ASG Scheduled Startup
 resource "aws_autoscaling_schedule" "bep-schedule-start" {
-  count = var.environment == "live" ? 0 : 1
+  count = var.bep_schedule_start ? 1 : 0
 
   scheduled_action_name  = "${var.aws_account}-${var.application}-bep-scheduled-startup"
   min_size               = var.bep_min_size
