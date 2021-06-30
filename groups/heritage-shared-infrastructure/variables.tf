@@ -139,3 +139,15 @@ variable "bep_cw_logs" {
   description = "Map of log file information; used to create log groups, IAM permissions and passed to the application to configure remote logging"
   default     = {}
 }
+
+variable "bep_schedule_stop" {
+  type        = bool
+  description = "Schedule an auto-stop on the BEP ASG"
+  default     = false
+}
+
+variable "bep_schedule_start" {
+  type        = bool
+  description = "Schedule an auto-start on the BEP ASG"
+  default     = false
+}
