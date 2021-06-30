@@ -153,6 +153,7 @@ data "vault_generic_secret" "chd_ec2_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/ec2"
 }
 
+# Disabled for now - will be used once backends have been identified and defined
 #data "vault_generic_secret" "chd_bep_data" {
 #  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/backend"
 #}
@@ -179,14 +180,9 @@ data "aws_ami" "chd_bep" {
 data "template_file" "bep_userdata" {
   template = file("${path.module}/templates/bep_user_data.tpl")
 
-#  vars = {
-#    REGION             = var.aws_region
-#    CHD_BACKEND_INPUTS = local.chd_bep_data
-#    ANSIBLE_INPUTS     = jsonencode(local.chd_bep_ansible_inputs)
-#    CHD_CRON_ENTRIES   = var.account == "hlive" ? "#No Entries" : templatefile("${path.module}/templates/bep_cron.tpl", { "USER" = "", "PASSWORD" = "" })
-#  }
   vars = {
     REGION             = var.aws_region
+#    CHD_BACKEND_INPUTS = local.chd_bep_data
     CHD_BACKEND_INPUTS = ""
     ANSIBLE_INPUTS     = jsonencode(local.chd_bep_ansible_inputs)
     CHD_CRON_ENTRIES   = var.account == "hlive" ? "#No Entries" : templatefile("${path.module}/templates/bep_cron.tpl", { "USER" = "", "PASSWORD" = "" })
