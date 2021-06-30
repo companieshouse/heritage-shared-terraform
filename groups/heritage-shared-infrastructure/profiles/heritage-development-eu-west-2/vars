@@ -298,8 +298,9 @@ bep_instance_size = "t2.medium"
 bep_min_size = 1
 bep_max_size = 1
 bep_desired_capacity = 1
+bep_schedule_stop = true
+bep_schedule_start = true
 
-# TBC TBC TBC TBC TBC
 bep_cw_logs = {
   "messages" = {
     file_path = "/var/log"
@@ -330,124 +331,4 @@ bep_cw_logs = {
     file_path = "/var/log/amazon/ssm"
     log_group_retention = 7
   }
-
-#  "auth.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "backend.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "cancelledSubmissions.log" = {
-#    file_path = "/home/chd/"
-#    log_group_retention = 7
-#  }
-#
-#  "cleanup.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "corporationTax.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "createCerts.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "DeletedAccounts.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "emailDispatcher.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "mailWarn.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "eReminder.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "eReminderCleanup.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "eRemindersImport.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "eReminderWarn.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "failedPayments.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "filedDataPDF.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "formArchive.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "formEnablement.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "formPartition.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "formProcess.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "formResponse.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "paymentTX.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "paymentTXReport.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "statsReport.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
-#
-#  "weeding.log" = {
-#    file_path = "/home/chd"
-#    log_group_retention = 7
-#  }
 }
