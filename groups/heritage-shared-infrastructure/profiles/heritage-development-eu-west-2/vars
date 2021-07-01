@@ -288,3 +288,47 @@ parameter_group_settings = [
       value = "AUTO"
     },
 ]
+
+# ------------------------------------------------------------------------------
+# CHD BEP
+# ------------------------------------------------------------------------------
+application = "chd"
+
+bep_instance_size = "t2.medium"
+bep_min_size = 1
+bep_max_size = 1
+bep_desired_capacity = 1
+bep_schedule_stop = true
+bep_schedule_start = true
+
+bep_cw_logs = {
+  "messages" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "secure" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "yum.log" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "cron" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "errors.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "amazon-ssm-agent.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+}
