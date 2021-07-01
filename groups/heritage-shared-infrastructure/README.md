@@ -8,9 +8,6 @@ Hosts the following RDS instances as these are shared across multiple services.
 * CICS
 * FES
 
-Hosts the following EC2 instances and associated resources
-* CHD BEP
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
