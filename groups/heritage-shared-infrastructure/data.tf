@@ -198,3 +198,4 @@ data "template_cloudinit_config" "bep_userdata_config" {
     content      = data.template_file.bep_userdata.rendered
   }
 }
+
