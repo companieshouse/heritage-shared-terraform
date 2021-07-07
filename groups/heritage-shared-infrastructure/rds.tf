@@ -11,7 +11,7 @@ module "rds_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access, each.value.rds_app_access)
+  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access)
   ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
@@ -26,6 +26,23 @@ module "rds_security_group" {
 
   egress_rules = ["all-all"]
 }
+
+module "rds_app_security_group" {
+  for_each = local.rds_databases_requiring_app_access
+
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 3.0"
+
+  name        = "sgr-${each.key}-rds-002"
+  description = format("Security group for the %s RDS database", upper(each.key))
+  vpc_id      = data.aws_vpc.vpc.id
+
+  ingress_cidr_blocks = concat(each.value.rds_app_access)
+  ingress_rules       = ["oracle-db-tcp"]
+
+  egress_rules = ["all-all"]
+}
+
 
 # ------------------------------------------------------------------------------
 # RDS Instance
@@ -75,10 +92,12 @@ module "rds" {
   performance_insights_retention_period = 7
 
   # RDS Security Group
-  vpc_security_group_ids = [
+  vpc_security_group_ids = flatten([
     module.rds_security_group[each.key].this_security_group_id,
-    data.aws_security_group.rds_shared.id
-  ]
+    data.aws_security_group.rds_shared.id,
+    [for key, value in module.rds_app_security_group : value.this_security_group_id],
+  ])
+
 
   # DB subnet group
   subnet_ids = data.aws_subnet_ids.data.ids
