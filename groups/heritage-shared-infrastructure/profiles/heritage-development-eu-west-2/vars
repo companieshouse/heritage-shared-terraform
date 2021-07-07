@@ -32,7 +32,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -67,7 +67,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -102,7 +102,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -137,7 +137,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -172,7 +172,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -207,7 +207,7 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_mesos_access = []
+    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
