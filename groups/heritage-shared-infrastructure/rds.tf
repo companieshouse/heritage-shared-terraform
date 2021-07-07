@@ -95,7 +95,7 @@ module "rds" {
   vpc_security_group_ids = flatten([
     module.rds_security_group[each.key].this_security_group_id,
     data.aws_security_group.rds_shared.id,
-    [for key, value in module.rds_app_security_group : value.this_security_group_id],
+    [for key, value in module.rds_app_security_group : value.this_security_group_id if key == each.key],
   ])
 
 
