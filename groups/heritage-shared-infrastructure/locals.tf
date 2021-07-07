@@ -191,6 +191,9 @@ locals {
     ]
   }
 
+  rds_databases_requiring_app_access = {
+    for key, value in var.rds_databases : key => value if length(value.rds_app_access) > 0
+  }
 
   default_tags = {
     Terraform = "true"
