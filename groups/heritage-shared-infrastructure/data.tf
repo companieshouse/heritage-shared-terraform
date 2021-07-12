@@ -68,6 +68,13 @@ data "aws_security_group" "adminsites" {
   }
 }
 
+data "aws_security_group" "cics_asg" {
+  filter {
+    name   = "tag:Name"
+    values = ["sgr-cics-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
