@@ -40,6 +40,20 @@ data "aws_security_group" "adminsites" {
   }
 }
 
+data "aws_security_group" "chd_bep_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-chd-bep-asg*"]
+  }
+}
+
+data "aws_security_group" "ceu_bep_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-ceu-bep-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
