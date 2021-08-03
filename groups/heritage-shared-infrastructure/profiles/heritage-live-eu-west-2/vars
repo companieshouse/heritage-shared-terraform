@@ -19,7 +19,7 @@ rds_databases = {
     engine_version             = "12.1.0.2.v23"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
-    rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+    rds_maintenance_window     = "Sat:10:00-Sat:13:00"
     rds_backup_window          = "03:00-06:00"
     rds_log_exports            = [
           "alert",
@@ -55,7 +55,7 @@ rds_databases = {
     engine_version             = "12.1.0.2.v23"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
-    rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+    rds_maintenance_window     = "Sat:10:00-Sat:13:00"
     rds_backup_window          = "03:00-06:00"
     rds_log_exports            = [
           "alert",
@@ -90,7 +90,7 @@ rds_databases = {
     engine_version             = "12.1.0.2.v23"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
-    rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+    rds_maintenance_window     = "Sat:10:00-Sat:13:00"
     rds_backup_window          = "03:00-06:00"
     rds_log_exports            = [
           "alert",
@@ -129,7 +129,7 @@ rds_databases = {
     engine_version             = "12.1.0.2.v23"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
-    rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+    rds_maintenance_window     = "Sat:10:00-Sat:13:00"
     rds_backup_window          = "03:00-06:00"
     rds_log_exports            = [
           "alert",
@@ -164,7 +164,7 @@ rds_databases = {
     engine_version             = "12.1.0.2.v23"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
-    rds_maintenance_window     = "Wed:00:00-Wed:03:00"
+    rds_maintenance_window     = "Sat:10:00-Sat:13:00"
     rds_backup_window          = "03:00-06:00"
     rds_log_exports            = [
           "alert",
