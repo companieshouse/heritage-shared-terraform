@@ -118,6 +118,13 @@ locals {
         protocol                 = "tcp"
         description              = "Frontend Tuxedo EWF"
         source_security_group_id = data.aws_security_group.ewf_fe_tux.id
+      },
+      {
+        from_port                = 1521
+        to_port                  = 1521
+        protocol                 = "tcp"
+        description              = "Backend CHD"
+        source_security_group_id = data.aws_security_group.chd_bep_asg.id
       }
     ],
     "wck" = [
