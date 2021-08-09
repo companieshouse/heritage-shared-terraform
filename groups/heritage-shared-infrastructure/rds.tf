@@ -59,7 +59,7 @@ module "rds" {
   identifier                 = join("-", ["rds", each.key, var.environment, "001"])
   engine                     = lookup(each.value, "engine", "oracle-se2")
   major_engine_version       = lookup(each.value, "major_engine_version", "12.1")
-  engine_version             = lookup(each.value, "engine_version", "12.1.0.2.v21")
+  engine_version             = lookup(each.value, "engine_version", "12.1.0.2.v24")
   auto_minor_version_upgrade = lookup(each.value, "auto_minor_version_upgrade", false)
   license_model              = lookup(each.value, "license_model", "license-included")
   instance_class             = lookup(each.value, "instance_class", "db.t3.medium")
