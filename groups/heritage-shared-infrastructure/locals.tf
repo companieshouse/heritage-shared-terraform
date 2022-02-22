@@ -97,7 +97,7 @@ locals {
         source_security_group_id = data.aws_security_group.xml_fe_tux.id
       }
     ],
-    "chd" = [
+    "chd" = flatten([
       {
         from_port                = 1521
         to_port                  = 1521
@@ -125,8 +125,17 @@ locals {
         protocol                 = "tcp"
         description              = "Backend CHD"
         source_security_group_id = data.aws_security_group.chd_bep_asg.id
-      }
-    ],
+      },
+      var.environment == "live" ? [] : [
+        {
+          from_port                = 1521
+          to_port                  = 1521
+          protocol                 = "tcp"
+          description              = "Frontend CHD"
+          source_security_group_id = data.aws_security_group.chd_fe_asg[0].id
+        },
+      ]
+    ]),
     "wck" = [
       {
         from_port                = 1521

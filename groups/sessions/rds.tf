@@ -21,7 +21,7 @@ module "rds_security_group" {
       cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access))
     }
   ]
-  ingress_with_source_security_group_id = [
+  ingress_with_source_security_group_id = flatten([
     {
       from_port                = 1521
       to_port                  = 1521
@@ -56,8 +56,17 @@ module "rds_security_group" {
       protocol                 = "tcp"
       description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep_asg.id
-    }
-  ]
+    },
+    var.environment == "live" ? [] : [
+      {
+        from_port                = 1521
+        to_port                  = 1521
+        protocol                 = "tcp"
+        description              = "Frontend CHD"
+        source_security_group_id = data.aws_security_group.chd_fe_asg[0].id
+      }
+    ],
+  ])
 
   egress_rules = ["all-all"]
 }
