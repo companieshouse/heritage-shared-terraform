@@ -57,6 +57,13 @@ module "rds_security_group" {
       description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep_asg.id
     },
+    {
+      from_port                = "1521"
+      to_port                  = "1521"
+      protocol                 = "tcp"
+      description              = "Frontend CEU"
+      source_security_group_id = local.ceu_fe_secgroup_rds_rule
+    },
     var.environment == "live" ? [] : [
       {
         from_port                = 1521
