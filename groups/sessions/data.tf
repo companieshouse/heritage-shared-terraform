@@ -75,10 +75,18 @@ data "aws_kms_key" "rds" {
   key_id = "alias/kms-rds"
 }
 
+data "vault_generic_secret" "account_ids" {
+  path = "aws-accounts/account-ids"
+}
+
 data "vault_generic_secret" "sess_rds" {
   path = "applications/${var.aws_profile}/sess/rds"
 }
 
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
+}
+
+data "vault_generic_secret" "ceu_fe_outputs" {
+  path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/ceu/ceu-fe-outputs"
 }
