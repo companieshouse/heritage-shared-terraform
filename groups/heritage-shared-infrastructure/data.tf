@@ -90,6 +90,20 @@ data "aws_security_group" "chd_fe_asg" {
   }
 }
 
+data "aws_security_group" "wck_fe_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-wck-fe-asg*"]
+  }
+}
+
+data "aws_security_group" "wck_bep_asg" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-wck-bep-asg*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
