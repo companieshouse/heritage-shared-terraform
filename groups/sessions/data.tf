@@ -48,7 +48,6 @@ data "aws_security_group" "chd_bep_asg" {
 }
 
 data "aws_security_group" "chd_fe_asg" {
-  count = var.environment == "live" ? 0 : 1
   filter {
     name   = "group-name"
     values = ["sgr-chd-fe-asg*"]

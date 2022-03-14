@@ -28,7 +28,7 @@ module "rds_security_group" {
       cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
     }
   ]
-  ingress_with_source_security_group_id = flatten([
+  ingress_with_source_security_group_id = [
     {
       from_port                = 1521
       to_port                  = 1521
@@ -64,15 +64,13 @@ module "rds_security_group" {
       description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep_asg.id
     },
-    var.environment == "live" ? [] : [
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend CHD"
-        source_security_group_id = data.aws_security_group.chd_fe_asg[0].id
-      }
-    ],
+    {
+      from_port                = 1521
+      to_port                  = 1521
+      protocol                 = "tcp"
+      description              = "Frontend CHD"
+      source_security_group_id = data.aws_security_group.chd_fe_asg.id
+    },
     {
       from_port                = 1521
       to_port                  = 1521
@@ -87,7 +85,7 @@ module "rds_security_group" {
       description              = "Backend WCK"
       source_security_group_id = data.aws_security_group.wck_bep_asg.id
     },
-  ])
+  ]
 
   egress_rules = ["all-all"]
 }
