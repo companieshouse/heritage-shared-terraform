@@ -46,8 +46,8 @@ variable "rds_databases" {
 }
 
 variable "parameter_group_settings" {
-  type        = list(any)
-  description = "A list of parameters that will be set in the RDS instance parameter group"
+  type        = map(list(any))
+  description = "A map whose keys represent RDS instances and whose values are a list of parameters that will be set in the RDS instance parameter group"
 }
 
 # ------------------------------------------------------------------------------
