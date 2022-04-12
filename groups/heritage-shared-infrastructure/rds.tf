@@ -105,7 +105,7 @@ module "rds" {
   # DB Parameter group
   family = join("-", [each.value.engine, each.value.major_engine_version])
 
-  parameters = var.parameter_group_settings
+  parameters = var.parameter_group_settings[each.key]
 
   options = concat([
     {
