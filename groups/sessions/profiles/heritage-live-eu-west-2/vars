@@ -22,7 +22,7 @@ rds_backup_window       = "03:00-06:00"
 
 # RDS Engine settings
 major_engine_version       = "12.1"
-engine_version             = "12.1.0.2.v25"
+engine_version             = "12.1"
 license_model              = "license-included"
 auto_minor_version_upgrade = true
 
