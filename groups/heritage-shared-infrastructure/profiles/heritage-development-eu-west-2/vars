@@ -548,9 +548,9 @@ parameter_group_settings = {
 
 rds_start_stop_schedule = {
   bcd = {
-    rds_schedule_enable = false
-    rds_start_schedule = ""
-    rds_stop_schedule = ""
+    rds_schedule_enable = true
+    rds_start_schedule = "cron(0 5 * * ? *)"
+    rds_stop_schedule = "cron(0 21 * * ? *)"
   },
   chd = {
     rds_schedule_enable = true
@@ -558,9 +558,9 @@ rds_start_stop_schedule = {
     rds_stop_schedule = "cron(0 21 * * ? *)"
   },
   chdata = {
-    rds_schedule_enable = false
-    rds_start_schedule = ""
-    rds_stop_schedule = ""
+    rds_schedule_enable = true
+    rds_start_schedule = "cron(0 5 * * ? *)"
+    rds_stop_schedule = "cron(0 21 * * ? *)"
   },
   cics = {
     rds_schedule_enable = true
