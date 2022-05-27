@@ -10,9 +10,6 @@ environment = "staging"
 
 rds_databases = {
   bcd = {
-    apply_immediately = true
-    allow_major_version_upgrade = true
-
     instance_class             = "db.m5.large"
     allocated_storage          = 50
     backup_retention_period    = 2
@@ -48,9 +45,6 @@ rds_databases = {
     ]
   },
   chdata = {
-    apply_immediately = true
-    allow_major_version_upgrade = true
-
     instance_class             = "db.m5.large"
     allocated_storage          = 30
     backup_retention_period    = 2
@@ -86,9 +80,6 @@ rds_databases = {
     ]
   },
   chd = {
-    apply_immediately = false
-    allow_major_version_upgrade = false
-
     instance_class             = "db.m5.large"
     allocated_storage          = 30
     backup_retention_period    = 2
@@ -128,9 +119,6 @@ rds_databases = {
     ]
   },
   wck = {
-    apply_immediately = false
-    allow_major_version_upgrade = false
-
     instance_class             = "db.m5.large"
     allocated_storage          = 30
     backup_retention_period    = 2
@@ -166,9 +154,6 @@ rds_databases = {
     ]
   },
   cics = {
-    apply_immediately = false
-    allow_major_version_upgrade = false
-
     instance_class             = "db.m5.large"
     allocated_storage          = 30
     backup_retention_period    = 2
