@@ -15,8 +15,8 @@ rds_databases = {
     backup_retention_period    = 2
     multi_az                   = true
     engine                     = "oracle-se2"
-    major_engine_version       = "12.1"
-    engine_version             = "12.1"
+    major_engine_version       = "19"
+    engine_version             = "19"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
@@ -50,8 +50,8 @@ rds_databases = {
     backup_retention_period    = 2
     multi_az                   = true
     engine                     = "oracle-se2"
-    major_engine_version       = "12.1"
-    engine_version             = "12.1"
+    major_engine_version       = "19"
+    engine_version             = "19"
     auto_minor_version_upgrade = true
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
@@ -198,12 +198,8 @@ parameter_group_settings = {
       value = "6"
     },
     {
-      name  = "sec_case_sensitive_logon"
-      value = "TRUE"
-    },
-    {
       name         = "compatible"
-      value        = "12.1.0.2.0"
+      value        = "19.0.0"
       apply_method = "pending-reboot"
     },      
     {
@@ -250,6 +246,14 @@ parameter_group_settings = {
       apply_method = "pending-reboot"
     },
     {
+      name  = "sqlnetora.sqlnet.allowed_logon_version_client"
+      value = "10"
+    },
+    {
+      name  = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value = "10"
+    },
+    {
       name         = "timed_statistics"
       value        = "TRUE"
       apply_method = "pending-reboot"
@@ -269,12 +273,8 @@ parameter_group_settings = {
       value = "6"
     },
     {
-      name  = "sec_case_sensitive_logon"
-      value = "TRUE"
-    },
-    {
       name         = "compatible"
-      value        = "12.1.0.2.0"
+      value        = "19.0.0"
       apply_method = "pending-reboot"
     },
     {
@@ -319,6 +319,14 @@ parameter_group_settings = {
       name         = "sessions"
       value        = "6720"
       apply_method = "pending-reboot"
+    },
+    {
+      name  = "sqlnetora.sqlnet.allowed_logon_version_client"
+      value = "10"
+    },
+    {
+      name  = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value = "10"
     },
     {
       name         = "timed_statistics"
