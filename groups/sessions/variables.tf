@@ -80,6 +80,24 @@ variable "rds_onpremise_access" {
   default     = []
 }
 
+variable "rds_schedule_enable" {
+  type        = bool
+  description = "Controls whether a start/stop schedule will be created for the RDS instance (true) or not (false)"
+  default     = false
+}
+
+variable "rds_start_schedule" {
+  type        = string
+  description = "The SSM cron expression that defines when the RDS instance will be started"
+  default     = ""
+}
+
+variable "rds_stop_schedule" {
+  type        = string
+  description = "The SSM cron expression that defines when the RDS instance will be stopped"
+  default     = ""
+}
+
 # ------------------------------------------------------------------------------
 # RDS Storage Variables
 # ------------------------------------------------------------------------------

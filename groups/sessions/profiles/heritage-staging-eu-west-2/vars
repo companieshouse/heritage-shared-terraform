@@ -116,3 +116,7 @@ parameter_group_settings = [
       value = "AUTO"
     },
 ]
+
+rds_schedule_enable = true
+rds_start_schedule = "cron(0 5 * * ? *)"
+rds_stop_schedule = "cron(0 21 * * ? *)"
