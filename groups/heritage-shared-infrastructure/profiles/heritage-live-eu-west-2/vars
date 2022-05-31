@@ -553,3 +553,31 @@ parameter_group_settings = {
     },
   ]
 }
+
+rds_start_stop_schedule = {
+  bcd = {
+    rds_schedule_enable = false
+    rds_start_schedule = ""
+    rds_stop_schedule = ""
+  },
+  chd = {
+    rds_schedule_enable = false
+    rds_start_schedule = ""
+    rds_stop_schedule = ""
+  },
+  chdata = {
+    rds_schedule_enable = false
+    rds_start_schedule = ""
+    rds_stop_schedule = ""
+  },
+  cics = {
+    rds_schedule_enable = false
+    rds_start_schedule = ""
+    rds_stop_schedule = ""
+  },
+  wck = {
+    rds_schedule_enable = false
+    rds_start_schedule = ""
+    rds_stop_schedule = ""
+  }
+}

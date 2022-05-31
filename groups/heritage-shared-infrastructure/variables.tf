@@ -50,6 +50,11 @@ variable "parameter_group_settings" {
   description = "A map whose keys represent RDS instances and whose values are a list of parameters that will be set in the RDS instance parameter group"
 }
 
+variable "rds_start_stop_schedule" {
+  type        = map(map(any))
+  description = "A map whose keys represent RDS instances and whose values define configuration for RDS start/stop schedules"
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------

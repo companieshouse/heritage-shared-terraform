@@ -141,3 +141,15 @@ module "rds" {
     )
   )
 }
+
+module "rds_start_stop_schedule" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule?ref=tags/1.0.131"
+
+  for_each = var.rds_start_stop_schedule
+
+  rds_schedule_enable = lookup(each.value, "rds_schedule_enable", false)
+
+  rds_instance_id     = module.rds[each.key].this_db_instance_id
+  rds_start_schedule  = lookup(each.value, "rds_start_schedule")
+  rds_stop_schedule   = lookup(each.value, "rds_stop_schedule")
+}
