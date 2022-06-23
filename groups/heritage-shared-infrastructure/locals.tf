@@ -16,177 +16,51 @@ locals {
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
   rds_ingress_from_services = {
-    "bcd" = [
-      {
+    "bcd" = flatten([
+      for sg_data in data.aws_security_group.rds_ingress_bcd : {
         from_port                = 1521
         to_port                  = 1521
         protocol                 = "tcp"
-        description              = "Frontend XML"
-        source_security_group_id = data.aws_security_group.xml_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend XML"
-        source_security_group_id = data.aws_security_group.xml_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_tux.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo XML"
-        source_security_group_id = data.aws_security_group.xml_fe_tux.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend EWF"
-        source_security_group_id = data.aws_security_group.ewf_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Admin Sites"
-        source_security_group_id = data.aws_security_group.adminsites.id
+        description              = "Access from ${sg_data.tags.Name}"
+        source_security_group_id = sg_data.id
       }
-    ],
-    "chdata" = [
-      {
+    ])
+    "chdata" = flatten([
+      for sg_data in data.aws_security_group.rds_ingress_chdata : {
         from_port                = 1521
         to_port                  = 1521
         protocol                 = "tcp"
-        description              = "Frontend XML"
-        source_security_group_id = data.aws_security_group.xml_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend XML"
-        source_security_group_id = data.aws_security_group.xml_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_tux.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo XML"
-        source_security_group_id = data.aws_security_group.xml_fe_tux.id
+        description              = "Access from ${sg_data.tags.Name}"
+        source_security_group_id = sg_data.id
       }
-    ],
-    "chd" = [
-      {
+    ])
+    "chd" = flatten([
+      for sg_data in data.aws_security_group.rds_ingress_chd : {
         from_port                = 1521
         to_port                  = 1521
         protocol                 = "tcp"
-        description              = "Frontend EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend EWF"
-        source_security_group_id = data.aws_security_group.ewf_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_tux.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend CHD"
-        source_security_group_id = data.aws_security_group.chd_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend CHD"
-        source_security_group_id = data.aws_security_group.chd_fe_asg.id
-      },
-    ],
-    "wck" = [
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend EWF"
-        source_security_group_id = data.aws_security_group.ewf_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend Tuxedo EWF"
-        source_security_group_id = data.aws_security_group.ewf_fe_tux.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend CHD"
-        source_security_group_id = data.aws_security_group.chd_bep_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Frontend WCK"
-        source_security_group_id = data.aws_security_group.wck_fe_asg.id
-      },
-      {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Backend WCK"
-        source_security_group_id = data.aws_security_group.wck_bep_asg.id
+        description              = "Access from ${sg_data.tags.Name}"
+        source_security_group_id = sg_data.id
       }
-    ],
-    "cics" = [
-      {
+    ])
+    "cics" = flatten([
+      for sg_data in data.aws_security_group.rds_ingress_cics : {
         from_port                = 1521
         to_port                  = 1521
         protocol                 = "tcp"
-        description              = "CICs App"
-        source_security_group_id = data.aws_security_group.cics_asg.id
+        description              = "Access from ${sg_data.tags.Name}"
+        source_security_group_id = sg_data.id
       }
-    ]
+    ])
+    "wck" = flatten([
+      for sg_data in data.aws_security_group.rds_ingress_wck : {
+        from_port                = 1521
+        to_port                  = 1521
+        protocol                 = "tcp"
+        description              = "Access from ${sg_data.tags.Name}"
+        source_security_group_id = sg_data.id
+      }
+    ])
   }
 
   rds_databases_requiring_app_access = {

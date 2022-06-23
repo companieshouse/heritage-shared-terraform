@@ -554,6 +554,44 @@ parameter_group_settings = {
   ]
 }
 
+rds_ingress_groups = {
+  bcd = [
+    "sgr-xml-fe-asg*",
+    "sgr-xml-bep-asg*",
+    "ewf-frontend-tuxedo*",
+    "xml-frontend-tuxedo*",
+    "sgr-ewf-bep-asg*",
+    "sgr-ewf-fe-asg*",
+    "sgr-admin-sites-asg*",
+    "sgr-chips-oltp-db*",
+    "sgr-chips-rep-db*"
+  ],
+  chdata = [
+    "sgr-xml-fe-asg*",
+    "sgr-xml-bep-asg*",
+    "ewf-frontend-tuxedo*",
+    "xml-frontend-tuxedo*"
+  ],
+  chd = [
+    "sgr-ewf-fe-asg*",
+    "sgr-ewf-bep-asg*",
+    "ewf-frontend-tuxedo*",
+    "sgr-chd-bep-asg*",
+    "sgr-chd-fe-asg*"
+  ],
+  cics = [
+    "sgr-cics-asg*"
+  ],
+  wck = [
+    "sgr-ewf-fe-asg*",
+    "sgr-ewf-bep-asg*",
+    "ewf-frontend-tuxedo*",
+    "sgr-chd-bep-asg*",
+    "sgr-wck-fe-asg*",
+    "sgr-wck-bep-asg*"
+  ]
+}
+
 rds_start_stop_schedule = {
   bcd = {
     rds_schedule_enable = false
