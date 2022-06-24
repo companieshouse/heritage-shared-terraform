@@ -577,7 +577,9 @@ rds_ingress_groups = {
     "xml-frontend-tuxedo*",
     "sgr-ewf-bep-asg*",
     "sgr-ewf-fe-asg*",
-    "sgr-admin-sites-asg*"
+    "sgr-admin-sites-asg*",
+    "sgr-chips-oltp-db*",
+    "sgr-chips-rep-db*"
   ],
   chdata = [
     "sgr-xml-fe-asg*",
