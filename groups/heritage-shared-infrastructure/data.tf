@@ -19,89 +19,46 @@ data "aws_security_group" "rds_shared" {
   }
 }
 
-data "aws_security_group" "xml_fe_asg" {
+data "aws_security_group" "rds_ingress_bcd" {
+  count = length(var.rds_ingress_groups["bcd"])
   filter {
     name   = "group-name"
-    values = ["sgr-xml-fe-asg*"]
+    values = [var.rds_ingress_groups["bcd"][count.index]]
   }
 }
 
-data "aws_security_group" "xml_fe_tux" {
-  filter {
-    name   = "tag:Name"
-    values = ["xml-frontend-tuxedo-${var.environment}"]
-  }
-}
-
-data "aws_security_group" "xml_bep_asg" {
+data "aws_security_group" "rds_ingress_chd" {
+  count = length(var.rds_ingress_groups["chd"])
   filter {
     name   = "group-name"
-    values = ["sgr-xml-bep-asg*"]
+    values = [var.rds_ingress_groups["chd"][count.index]]
   }
 }
 
-data "aws_security_group" "ewf_fe_asg" {
+data "aws_security_group" "rds_ingress_chdata" {
+  count = length(var.rds_ingress_groups["chdata"])
   filter {
     name   = "group-name"
-    values = ["sgr-ewf-fe-asg*"]
+    values = [var.rds_ingress_groups["chdata"][count.index]]
   }
 }
 
-data "aws_security_group" "ewf_fe_tux" {
-  filter {
-    name   = "tag:Name"
-    values = ["ewf-frontend-tuxedo-${var.environment}"]
-  }
-}
-
-data "aws_security_group" "ewf_bep_asg" {
+data "aws_security_group" "rds_ingress_cics" {
+  count = length(var.rds_ingress_groups["cics"])
   filter {
     name   = "group-name"
-    values = ["sgr-ewf-bep-asg*"]
+    values = [var.rds_ingress_groups["cics"][count.index]]
   }
 }
 
-data "aws_security_group" "adminsites" {
-  filter {
-    name   = "tag:Name"
-    values = ["sgr-admin-sites-asg*"]
-  }
-}
-
-data "aws_security_group" "cics_asg" {
-  filter {
-    name   = "tag:Name"
-    values = ["sgr-cics-asg*"]
-  }
-}
-
-data "aws_security_group" "chd_bep_asg" {
+data "aws_security_group" "rds_ingress_wck" {
+  count = length(var.rds_ingress_groups["wck"])
   filter {
     name   = "group-name"
-    values = ["sgr-chd-bep-asg*"]
+    values = [var.rds_ingress_groups["wck"][count.index]]
   }
 }
 
-data "aws_security_group" "chd_fe_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-chd-fe-asg*"]
-  }
-}
-
-data "aws_security_group" "wck_fe_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-wck-fe-asg*"]
-  }
-}
-
-data "aws_security_group" "wck_bep_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-wck-bep-asg*"]
-  }
-}
 
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
