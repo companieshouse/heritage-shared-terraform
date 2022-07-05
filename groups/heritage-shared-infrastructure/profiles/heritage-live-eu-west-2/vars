@@ -571,7 +571,8 @@ rds_ingress_groups = {
     "sgr-xml-bep-asg*",
     "ewf-frontend-tuxedo*",
     "xml-frontend-tuxedo*",
-    "sgr-chips-rep-db*"
+    "sgr-chips-rep-db*",
+    "sgr-chips-oltp-db*"
   ],
   chd = [
     "sgr-ewf-fe-asg*",
