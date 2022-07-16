@@ -56,9 +56,6 @@ module "rds" {
   create_db_parameter_group = "true"
   create_db_subnet_group    = "true"
 
-  apply_immediately = lookup(each.value, "apply_immediately")
-  allow_major_version_upgrade = lookup(each.value, "allow_major_version_upgrade")
-
   identifier                 = join("-", ["rds", each.key, var.environment, "001"])
   engine                     = lookup(each.value, "engine", "oracle-se2")
   major_engine_version       = lookup(each.value, "major_engine_version", "12.1")
