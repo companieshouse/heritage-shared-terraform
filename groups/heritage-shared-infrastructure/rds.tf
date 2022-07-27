@@ -153,3 +153,15 @@ module "rds_start_stop_schedule" {
   rds_start_schedule  = lookup(each.value, "rds_start_schedule")
   rds_stop_schedule   = lookup(each.value, "rds_stop_schedule")
 }
+
+module "rds_cloudwatch_alarms" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/rds_cloudwatch_alarms?ref=tags/1.0.167"
+
+  for_each = var.rds_cloudwatch_alarms
+
+  rds_instance_id        = module.rds[each.key].this_db_instance_id
+  rds_instance_shortname = upper(each.key)
+  alarm_actions_enabled  = lookup(each.value, "alarm_actions_enabled")
+  alarm_topic_name       = lookup(each.value, "alarm_topic_name")
+  alarm_topic_name_ooh   = lookup(each.value, "alarm_topic_name_ooh")
+}
