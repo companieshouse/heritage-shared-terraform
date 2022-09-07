@@ -637,3 +637,31 @@ rds_start_stop_schedule = {
     rds_stop_schedule = ""
   }
 }
+
+rds_cloudwatch_alarms = {
+  bcd = {
+    alarm_actions_enabled = false
+    alarm_topic_name = "Email_Alerts"
+    alarm_topic_name_ooh = "Phonecall_Alerts"
+  },
+  chd = {
+    alarm_actions_enabled = false
+    alarm_topic_name = "Email_Alerts"
+    alarm_topic_name_ooh = "Phonecall_Alerts"
+  },
+  chdata = {
+    alarm_actions_enabled = false
+    alarm_topic_name = "Email_Alerts"
+    alarm_topic_name_ooh = "Phonecall_Alerts"
+  },
+  cics = {
+    alarm_actions_enabled = false
+    alarm_topic_name = "Email_Alerts"
+    alarm_topic_name_ooh = "Phonecall_Alerts"
+  },
+  wck = {
+    alarm_actions_enabled = false
+    alarm_topic_name = "Email_Alerts"
+    alarm_topic_name_ooh = "Phonecall_Alerts"
+  }
+}

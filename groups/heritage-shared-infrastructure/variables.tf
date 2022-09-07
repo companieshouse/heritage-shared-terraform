@@ -60,6 +60,11 @@ variable "rds_start_stop_schedule" {
   description = "A map whose keys represent RDS instances and whose values define configuration for RDS start/stop schedules"
 }
 
+variable "rds_cloudwatch_alarms" {
+  type        = map(map(any))
+  description = "A map whose keys represent RDS instances and whose values define RDS CloudWatch Alarms configuration"
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------

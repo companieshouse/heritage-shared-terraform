@@ -629,3 +629,31 @@ rds_start_stop_schedule = {
     rds_stop_schedule = "cron(0 21 * * ? *)"
   }
 }
+
+rds_cloudwatch_alarms = {
+  bcd = {
+    alarm_actions_enabled = false
+    alarm_topic_name = ""
+    alarm_topic_name_ooh = ""
+  },
+  chd = {
+    alarm_actions_enabled = false
+    alarm_topic_name = ""
+    alarm_topic_name_ooh = ""
+  },
+  chdata = {
+    alarm_actions_enabled = false
+    alarm_topic_name = ""
+    alarm_topic_name_ooh = ""
+  },
+  cics = {
+    alarm_actions_enabled = false
+    alarm_topic_name = ""
+    alarm_topic_name_ooh = ""
+  },
+  wck = {
+    alarm_actions_enabled = false
+    alarm_topic_name = ""
+    alarm_topic_name_ooh = ""
+  }
+}
