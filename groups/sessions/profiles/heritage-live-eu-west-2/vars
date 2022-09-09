@@ -126,6 +126,6 @@ parameter_group_settings = [
 ]
 
 ## CloudWatch Alarms
-alarm_actions_enabled  = false
+alarm_actions_enabled  = true
 alarm_topic_name       = "Email_Alerts"
 alarm_topic_name_ooh   = "Phonecall_Alerts"
