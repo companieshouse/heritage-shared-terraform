@@ -598,7 +598,8 @@ rds_ingress_groups = {
     "sgr-chd-fe-asg*"
   ],
   cics = [
-    "sgr-cics-asg*"
+    "sgr-cics-asg*",
+    "sgr-windows-workloads-bus-obj-1-server*"
   ],
   wck = [
     "sgr-ewf-fe-asg*",
