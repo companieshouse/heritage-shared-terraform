@@ -198,7 +198,7 @@ rds_databases = {
             value = "Europe/London"
           },
         ]
-      },
+      }
     ]
   }
 }
