@@ -114,9 +114,6 @@ module "rds" {
       vpc_security_group_memberships = [module.rds_security_group[each.key].this_security_group_id]
     },
     {
-      option_name = "JVM"
-    },
-    {
       option_name = "SQLT"
       version     = "2018-07-25.v1"
       option_settings = [

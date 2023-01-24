@@ -43,6 +43,9 @@ rds_databases = {
           },
         ]
       },
+      {
+        option_name = "JVM"
+      }
     ]
   },
   chdata = {
@@ -78,6 +81,9 @@ rds_databases = {
           },
         ]
       },
+      {
+        option_name = "JVM"
+      }
     ]
   },
   chd = {
@@ -117,6 +123,9 @@ rds_databases = {
           },
         ]
       },
+      {
+        option_name = "JVM"
+      }
     ]
   },
   wck = {
@@ -152,6 +161,9 @@ rds_databases = {
           },
         ]
       },
+      {
+        option_name = "JVM"
+      }
     ]
   },
   cics = {
