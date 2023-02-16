@@ -2,8 +2,6 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
-  admin_cidrs = values(data.vault_generic_secret.internal_cidrs.data)
-
   rds_data = {
     bcd    = data.vault_generic_secret.bcd_rds.data
     chdata = data.vault_generic_secret.chdata_rds.data

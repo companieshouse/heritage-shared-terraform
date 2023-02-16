@@ -97,6 +97,6 @@ data "vault_generic_secret" "fes_rds" {
   path = "applications/${var.aws_profile}/fes/rds"
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
+data "aws_ec2_managed_prefix_list" "administration" {
+  name = "administration-cidr-ranges"
 }
