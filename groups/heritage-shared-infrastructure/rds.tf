@@ -11,20 +11,22 @@ module "rds_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access)
+  ingress_prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   ingress_rules       = ["oracle-db-tcp"]
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 5500
-      to_port     = 5500
-      protocol    = "tcp"
-      description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, each.value.rds_onpremise_access))
-    }
-  ]
-  ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
 
   egress_rules = ["all-all"]
+}
+
+resource "aws_security_group_rule" "oem_rule" {
+  for_each = var.rds_databases
+
+  description       = "Oracle Enterprise Manager"
+  from_port         = 5500
+  to_port           = 5500
+  protocol          = "tcp"
+  type              = "ingress"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.administration.id]
+  security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
 module "rds_app_security_group" {
@@ -39,6 +41,22 @@ module "rds_app_security_group" {
 
   ingress_cidr_blocks = concat(each.value.rds_app_access)
   ingress_rules       = ["oracle-db-tcp"]
+
+  egress_rules = ["all-all"]
+}
+
+module "rds_service_security_group" {
+  for_each = var.rds_databases
+
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 3.0"
+
+  name        = "sgr-${each.key}-rds-003"
+  description = format("Security group for the %s RDS database", upper(each.key))
+  vpc_id      = data.aws_vpc.vpc.id
+
+  ingress_rules                         = ["oracle-db-tcp"]
+  ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
 
   egress_rules = ["all-all"]
 }
