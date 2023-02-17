@@ -80,6 +80,12 @@ variable "rds_onpremise_access" {
   default     = []
 }
 
+variable "rds_ingress_groups" {
+  type        = list(string)
+  description = "A list of security group name patterns that will be allowed access to RDS"
+  default     = []
+}
+
 variable "rds_schedule_enable" {
   type        = bool
   description = "Controls whether a start/stop schedule will be created for the RDS instance (true) or not (false)"
