@@ -45,7 +45,7 @@ module "rds_app_security_group" {
   egress_rules = ["all-all"]
 }
 
-module "rds_service_security_group" {
+module "rds_security_group_services" {
   for_each = var.rds_databases
 
   source  = "terraform-aws-modules/security-group/aws"
@@ -112,6 +112,7 @@ module "rds" {
   # RDS Security Group
   vpc_security_group_ids = flatten([
     module.rds_security_group[each.key].this_security_group_id,
+    module.rds_security_group_services[each.key].this_security_group_id,
     data.aws_security_group.rds_shared.id,
     [for key, value in module.rds_app_security_group : value.this_security_group_id if key == each.key],
   ])
