@@ -19,59 +19,11 @@ data "aws_security_group" "rds_shared" {
   }
 }
 
-data "aws_security_group" "ewf_fe_asg" {
+data "aws_security_group" "rds_ingress" {
+  count = length(var.rds_ingress_groups)
   filter {
     name   = "group-name"
-    values = ["sgr-ewf-fe-asg*"]
-  }
-}
-
-data "aws_security_group" "ewf_bep_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-ewf-bep-asg*"]
-  }
-}
-
-data "aws_security_group" "adminsites" {
-  filter {
-    name   = "tag:Name"
-    values = ["sgr-admin-sites-asg*"]
-  }
-}
-
-data "aws_security_group" "chd_bep_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-chd-bep-asg*"]
-  }
-}
-
-data "aws_security_group" "chd_fe_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-chd-fe-asg*"]
-  }
-}
-
-data "aws_security_group" "ceu_bep_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-ceu-bep-asg*"]
-  }
-}
-
-data "aws_security_group" "wck_fe_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-wck-fe-asg*"]
-  }
-}
-
-data "aws_security_group" "wck_bep_asg" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-wck-bep-asg*"]
+    values = [var.rds_ingress_groups[count.index]]
   }
 }
 
@@ -96,8 +48,8 @@ data "vault_generic_secret" "sess_rds" {
   path = "applications/${var.aws_profile}/sess/rds"
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
+data "aws_ec2_managed_prefix_list" "administration" {
+  name = "administration-cidr-ranges"
 }
 
 data "vault_generic_secret" "ceu_fe_outputs" {
