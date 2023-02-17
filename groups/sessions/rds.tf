@@ -10,16 +10,32 @@ module "rds_security_group" {
   description = "Security group for the sessions RDS database"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, var.rds_onpremise_access)
-  ingress_rules       = ["oracle-db-tcp"]
+  ingress_cidr_blocks      = var.rds_onpremise_access
+  ingress_prefix_list_ids  = [data.aws_ec2_managed_prefix_list.administration.id]
+  ingress_rules            = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
       from_port   = 5500
       to_port     = 5500
       protocol    = "tcp"
       description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access))
-    },
+      cidr_blocks = join(",", var.rds_onpremise_access)
+    }
+  ]
+
+  egress_rules = ["all-all"]
+}
+
+module "rds_security_group_services" {
+
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 3.0"
+
+  name        = "sgr-sessions-rds-002"
+  description = "Services security group for the sessions RDS database"
+  vpc_id      = data.aws_vpc.vpc.id
+
+  ingress_with_cidr_blocks = [
     {
       from_port   = "1521"
       to_port     = "1521"
@@ -28,64 +44,7 @@ module "rds_security_group" {
       cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
     }
   ]
-  ingress_with_source_security_group_id = [
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend EWF"
-      source_security_group_id = data.aws_security_group.ewf_fe_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend EWF"
-      source_security_group_id = data.aws_security_group.ewf_bep_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend Admin sites"
-      source_security_group_id = data.aws_security_group.adminsites.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend CHD"
-      source_security_group_id = data.aws_security_group.chd_bep_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend CEU"
-      source_security_group_id = data.aws_security_group.ceu_bep_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend CHD"
-      source_security_group_id = data.aws_security_group.chd_fe_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend WCK"
-      source_security_group_id = data.aws_security_group.wck_fe_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend WCK"
-      source_security_group_id = data.aws_security_group.wck_bep_asg.id
-    },
-  ]
+  ingress_with_source_security_group_id = local.rds_ingress_from_services
 
   egress_rules = ["all-all"]
 }
@@ -138,6 +97,7 @@ module "sessions_rds" {
   # RDS Security Group
   vpc_security_group_ids = [
     module.rds_security_group.this_security_group_id,
+    module.rds_security_group_services.this_security_group_id,
     data.aws_security_group.rds_shared.id
   ]
 
