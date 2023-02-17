@@ -125,6 +125,17 @@ parameter_group_settings = [
     },
 ]
 
+rds_ingress_groups = [
+  "sgr-ewf-fe-asg*",
+  "sgr-ewf-bep-asg*",
+  "sgr-admin-sites-asg*",
+  "sgr-chd-bep-asg*",
+  "sgr-chd-fe-asg*",
+  "sgr-ceu-bep-asg*",
+  "sgr-wck-fe-asg*",
+  "sgr-wck-bep-asg*"
+]
+
 ## CloudWatch Alarms
 alarm_actions_enabled  = true
 alarm_topic_name       = "Email_Alerts"

@@ -114,6 +114,17 @@ parameter_group_settings = [
     },
 ]
 
+rds_ingress_groups = [
+  "sgr-ewf-fe-asg*",
+  "sgr-ewf-bep-asg*",
+  "sgr-admin-sites-asg*",
+  "sgr-chd-bep-asg*",
+  "sgr-chd-fe-asg*",
+  "sgr-ceu-bep-asg*",
+  "sgr-wck-fe-asg*",
+  "sgr-wck-bep-asg*"
+]
+
 rds_schedule_enable = true
 rds_start_schedule = "cron(0 5 * * ? *)"
 rds_stop_schedule = "cron(0 21 * * ? *)"
