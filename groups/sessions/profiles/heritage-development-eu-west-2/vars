@@ -114,6 +114,31 @@ parameter_group_settings = [
     },
 ]
 
+option_group_settings = [
+  {
+    option_name = "JVM"
+  },
+  {
+    option_name = "SQLT"
+    version     = "2018-07-25.v1"
+    option_settings = [
+      {
+        name  = "LICENSE_PACK"
+        value = "N"
+      },
+    ]
+  },
+  {
+    option_name = "Timezone"
+    option_settings = [
+      {
+        name  = "TIME_ZONE"
+        value = "Europe/London"
+      },
+    ]
+  }
+]
+
 rds_schedule_enable = true
 rds_start_schedule = "cron(0 5 * * ? *)"
 rds_stop_schedule = "cron(0 21 * * ? *)"
