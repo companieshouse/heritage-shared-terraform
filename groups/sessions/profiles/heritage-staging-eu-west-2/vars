@@ -22,7 +22,7 @@ rds_backup_window       = "03:00-06:00"
 major_engine_version       = "19"
 engine_version             = "19"
 license_model              = "license-included"
-auto_minor_version_upgrade = true
+auto_minor_version_upgrade = false
 
 rds_onpremise_access = [
   "10.65.2.0/24",
@@ -115,6 +115,28 @@ parameter_group_settings = [
       name  = "workarea_size_policy"
       value = "AUTO"
     },
+]
+
+option_group_settings = [
+  {
+    option_name = "SQLT"
+    version     = "2018-07-25.v1"
+    option_settings = [
+      {
+        name  = "LICENSE_PACK"
+        value = "N"
+      },
+    ]
+  },
+  {
+    option_name = "Timezone"
+    option_settings = [
+      {
+        name  = "TIME_ZONE"
+        value = "Europe/London"
+      },
+    ]
+  }
 ]
 
 rds_ingress_groups = [

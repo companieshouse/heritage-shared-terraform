@@ -17,7 +17,7 @@ rds_databases = {
     engine                     = "oracle-se2"
     major_engine_version       = "19"
     engine_version             = "19"
-    auto_minor_version_upgrade = true
+    auto_minor_version_upgrade = false
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
     rds_backup_window          = "03:00-06:00"
@@ -38,9 +38,6 @@ rds_databases = {
           },
         ]
       },
-      {
-        option_name = "JVM"
-      }
     ]
   },
   chdata = {
@@ -51,7 +48,7 @@ rds_databases = {
     engine                     = "oracle-se2"
     major_engine_version       = "19"
     engine_version             = "19"
-    auto_minor_version_upgrade = true
+    auto_minor_version_upgrade = false
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
     rds_backup_window          = "03:00-06:00"
@@ -72,9 +69,6 @@ rds_databases = {
           },
         ]
       },
-      {
-        option_name = "JVM"
-      }
     ]
   },
   chd = {
@@ -85,7 +79,7 @@ rds_databases = {
     engine                     = "oracle-se2"
     major_engine_version       = "19"
     engine_version             = "19"
-    auto_minor_version_upgrade = true
+    auto_minor_version_upgrade = false
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
     rds_backup_window          = "03:00-06:00"
@@ -110,9 +104,6 @@ rds_databases = {
           },
         ]
       },
-      {
-        option_name = "JVM"
-      }
     ]
   },
   wck = {
@@ -123,7 +114,7 @@ rds_databases = {
     engine                     = "oracle-se2"
     major_engine_version       = "19"
     engine_version             = "19"
-    auto_minor_version_upgrade = true
+    auto_minor_version_upgrade = false
     license_model              = "license-included"
     rds_maintenance_window     = "Wed:00:00-Wed:03:00"
     rds_backup_window          = "03:00-06:00"
@@ -144,9 +135,6 @@ rds_databases = {
           },
         ]
       },
-      {
-        option_name = "JVM"
-      }
     ]
   },
   cics = {
