@@ -24,7 +24,7 @@ rds_backup_window       = "03:00-06:00"
 major_engine_version       = "19"
 engine_version             = "19"
 license_model              = "license-included"
-auto_minor_version_upgrade = flase
+auto_minor_version_upgrade = false
 
 rds_onpremise_access = [
   "10.55.2.0/24",
