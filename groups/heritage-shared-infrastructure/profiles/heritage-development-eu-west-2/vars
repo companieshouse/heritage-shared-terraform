@@ -32,7 +32,9 @@ rds_databases = {
       "192.168.90.0/24",
       "192.168.70.0/24"
     ]
-    rds_app_access = []
+    rds_app_access = [
+      "10.94.6.242/32",
+    ]
     per_instance_options = [
       {
         option_name = "Timezone"
