@@ -82,7 +82,7 @@ rds_databases = {
   },
   chd = {
     instance_class             = "db.m5.large"
-    allocated_storage          = 40
+    allocated_storage          = 80
     backup_retention_period    = 14
     multi_az                   = true
     engine                     = "oracle-se2"
