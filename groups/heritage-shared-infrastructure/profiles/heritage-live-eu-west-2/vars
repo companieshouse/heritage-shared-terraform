@@ -100,7 +100,8 @@ rds_databases = {
     ],
     rds_onpremise_access = [
       "192.168.90.0/24",
-      "192.168.70.0/24"
+      "192.168.70.0/24",
+      "192.168.60.0/24"
     ]
     rds_app_access = [
       "10.55.2.0/24",
@@ -139,7 +140,8 @@ rds_databases = {
     ],
     rds_onpremise_access = [
       "192.168.90.0/24",
-      "192.168.70.0/24"
+      "192.168.70.0/24",
+      "192.168.60.0/24"
     ]
     rds_app_access = []
     per_instance_options = [
