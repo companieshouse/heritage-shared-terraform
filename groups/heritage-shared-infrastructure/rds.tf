@@ -43,6 +43,16 @@ module "rds_app_security_group" {
   egress_rules = ["all-all"]
 }
 
+resource "aws_security_group_rule" "dba_dev_ingress" {
+  for_each = local.dba_dev_ingress_rules_map
+
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  cidr_blocks       = [each.value["cidr"]]
+  security_group_id = each.value.sg_id
+}
 
 # ------------------------------------------------------------------------------
 # RDS Instance
