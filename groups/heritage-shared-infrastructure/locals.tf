@@ -8,7 +8,6 @@ locals {
     bcd    = data.vault_generic_secret.bcd_rds.data
     chdata = data.vault_generic_secret.chdata_rds.data
     chd    = data.vault_generic_secret.chd_rds.data
-    wck    = data.vault_generic_secret.wck_rds.data
     cics   = data.vault_generic_secret.cics_rds.data
     fes    = data.vault_generic_secret.fes_rds.data
   }
@@ -52,15 +51,6 @@ locals {
         source_security_group_id = sg_data.id
       }
     ])
-    "wck" = flatten([
-      for sg_data in data.aws_security_group.rds_ingress_wck : {
-        from_port                = 1521
-        to_port                  = 1521
-        protocol                 = "tcp"
-        description              = "Access from ${sg_data.tags.Name}"
-        source_security_group_id = sg_data.id
-      }
-    ])
   }
 
   rds_databases_requiring_app_access = {
@@ -69,12 +59,10 @@ locals {
 
   chd_dba_dev_ingress_cidrs_list    = jsondecode(data.vault_generic_secret.chd_rds.data_json)["dba-dev-cidrs"]
   chdata_dba_dev_ingress_cidrs_list = jsondecode(data.vault_generic_secret.chdata_rds.data_json)["dba-dev-cidrs"]
-  wck_dba_dev_ingress_cidrs_list    = jsondecode(data.vault_generic_secret.wck_rds.data_json)["dba-dev-cidrs"]
 
   dba_dev_ingress_instances_map = {
     chd    = local.chd_dba_dev_ingress_cidrs_list,
     chdata = local.chdata_dba_dev_ingress_cidrs_list,
-    wck    = local.wck_dba_dev_ingress_cidrs_list
   }
 
   dba_dev_ingress_rules_map = merge([
