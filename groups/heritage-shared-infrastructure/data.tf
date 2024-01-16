@@ -51,15 +51,6 @@ data "aws_security_group" "rds_ingress_cics" {
   }
 }
 
-data "aws_security_group" "rds_ingress_wck" {
-  count = length(var.rds_ingress_groups["wck"])
-  filter {
-    name   = "group-name"
-    values = [var.rds_ingress_groups["wck"][count.index]]
-  }
-}
-
-
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
@@ -83,10 +74,6 @@ data "vault_generic_secret" "chdata_rds" {
 
 data "vault_generic_secret" "chd_rds" {
   path = "applications/${var.aws_profile}/chd/rds"
-}
-
-data "vault_generic_secret" "wck_rds" {
-  path = "applications/${var.aws_profile}/wck/rds"
 }
 
 data "vault_generic_secret" "cics_rds" {

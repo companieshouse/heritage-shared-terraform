@@ -4,7 +4,6 @@ Hosts the following RDS instances as these are shared across multiple services.
 * BCD
 * CHData
 * CHD
-* WCK
 * CICS
 * FES
 
@@ -58,7 +57,6 @@ Hosts the following RDS instances as these are shared across multiple services.
 | [vault_generic_secret.cics_rds](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 | [vault_generic_secret.fes_rds](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 | [vault_generic_secret.internal_cidrs](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
-| [vault_generic_secret.wck_rds](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 
 ## Inputs
 

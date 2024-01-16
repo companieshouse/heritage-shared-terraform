@@ -71,20 +71,6 @@ module "rds_security_group" {
       description              = "Frontend CHD"
       source_security_group_id = data.aws_security_group.chd_fe_asg.id
     },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend WCK"
-      source_security_group_id = data.aws_security_group.wck_fe_asg.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend WCK"
-      source_security_group_id = data.aws_security_group.wck_bep_asg.id
-    },
   ]
 
   egress_rules = ["all-all"]
