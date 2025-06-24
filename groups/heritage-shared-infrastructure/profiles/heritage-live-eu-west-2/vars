@@ -11,7 +11,7 @@ environment = "live"
 rds_databases = {
   bcd = {
     instance_class             = "db.m5.xlarge"
-    allocated_storage          = 300
+    allocated_storage          = 400
     backup_retention_period    = 2
     multi_az                   = true
     engine                     = "oracle-se2"
@@ -167,7 +167,7 @@ parameter_group_settings = {
       name         = "compatible"
       value        = "19.0.0"
       apply_method = "pending-reboot"
-    },      
+    },
     {
       name  = "db_file_multiblock_read_count"
       value = "64"
