@@ -67,7 +67,7 @@ variable "rds_cloudwatch_alarms" {
 
 variable "rds_ingress_concourse" {
   default     = []
-  description = "A list of RDS instance keys that will permit connectivity from Concourse"
+  description = "A list of RDS instance keys that will be configured to permit connectivity from Concourse"
   type        = list(string)
 }
 
