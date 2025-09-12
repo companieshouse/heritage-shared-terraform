@@ -500,7 +500,9 @@ rds_ingress_groups = {
 }
 
 rds_ingress_concourse = [
-  "bcd"
+  "bcd",
+  "chd",
+  "chdata"
 ]
 
 rds_start_stop_schedule = {
