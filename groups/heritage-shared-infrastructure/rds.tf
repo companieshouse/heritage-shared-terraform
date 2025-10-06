@@ -11,7 +11,7 @@ module "rds_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks     = concat(local.admin_cidrs, each.value.rds_onpremise_access)
+  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access)
   ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
@@ -170,9 +170,9 @@ module "rds_start_stop_schedule" {
 
   rds_schedule_enable = lookup(each.value, "rds_schedule_enable", false)
 
-  rds_instance_id     = module.rds[each.key].this_db_instance_id
-  rds_start_schedule  = lookup(each.value, "rds_start_schedule")
-  rds_stop_schedule   = lookup(each.value, "rds_stop_schedule")
+  rds_instance_id    = module.rds[each.key].this_db_instance_id
+  rds_start_schedule = lookup(each.value, "rds_start_schedule")
+  rds_stop_schedule  = lookup(each.value, "rds_stop_schedule")
 }
 
 module "rds_cloudwatch_alarms" {
@@ -180,10 +180,10 @@ module "rds_cloudwatch_alarms" {
 
   for_each = var.rds_cloudwatch_alarms
 
-  db_instance_id         = module.rds[each.key].this_db_instance_id
-  db_instance_shortname  = upper(each.key)
-  alarm_actions_enabled  = lookup(each.value, "alarm_actions_enabled")
-  alarm_name_prefix      = "Oracle RDS"
-  alarm_topic_name       = lookup(each.value, "alarm_topic_name")
-  alarm_topic_name_ooh   = lookup(each.value, "alarm_topic_name_ooh")
+  db_instance_id        = module.rds[each.key].this_db_instance_id
+  db_instance_shortname = upper(each.key)
+  alarm_actions_enabled = lookup(each.value, "alarm_actions_enabled")
+  alarm_name_prefix     = "Oracle RDS"
+  alarm_topic_name      = lookup(each.value, "alarm_topic_name")
+  alarm_topic_name_ooh  = lookup(each.value, "alarm_topic_name_ooh")
 }
