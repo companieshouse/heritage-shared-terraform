@@ -2,12 +2,6 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
-  admin_cidrs = flatten([
-    for entry in data.aws_ec2_managed_prefix_list.admin.entries : [
-      entry.cidr
-    ]
-  ])
-
   rds_data = {
     bcd    = data.vault_generic_secret.bcd_rds.data
     chdata = data.vault_generic_secret.chdata_rds.data

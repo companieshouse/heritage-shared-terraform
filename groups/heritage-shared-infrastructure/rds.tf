@@ -11,7 +11,8 @@ module "rds_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access)
+  ingress_prefix_list_ids = [data.aws_ec2_managed_prefix_list.admin.id]
+  ingress_cidr_blocks = each.value.rds_onpremise_access
   ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
@@ -19,7 +20,7 @@ module "rds_security_group" {
       to_port     = 5500
       protocol    = "tcp"
       description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, each.value.rds_onpremise_access))
+      cidr_blocks = join(",", each.value.rds_onpremise_access)
     }
   ]
   ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
