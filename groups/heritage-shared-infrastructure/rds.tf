@@ -48,30 +48,6 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
   security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
-resource "aws_security_group_rule" "on_premise_ingress" {
-  for_each = var.rds_databases
-
-  description       = "Permit access to ${each.key} from on premise ranges"
-  type              = "ingress"
-  from_port         = 1521
-  to_port           = 1521
-  protocol          = "tcp"
-  cidr_blocks       = each.value.rds_onpremise_access
-  security_group_id = module.rds_security_group[each.key].this_security_group_id
-}
-
-resource "aws_security_group_rule" "on_premise_ingress_oem" {
-  for_each = var.rds_databases
-
-  description       = "Permit access to ${each.key} from on premise ranges"
-  type              = "ingress"
-  from_port         = 5500
-  to_port           = 5500
-  protocol          = "tcp"
-  cidr_blocks       = each.value.rds_onpremise_access
-  security_group_id = module.rds_security_group[each.key].this_security_group_id
-}
-
 resource "aws_security_group_rule" "rds_ingress_source_sg" {
   for_each = local.rds_ingress_from_services
 
