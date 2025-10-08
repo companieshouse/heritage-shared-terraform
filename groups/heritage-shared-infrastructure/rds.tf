@@ -10,6 +10,10 @@ module "rds_security_group" {
   name        = "sgr-${each.key}-rds-001"
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
+
+  ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
+
+  egress_rules = ["all-all"]
 }
 
 resource "aws_security_group_rule" "concourse_ingress" {
@@ -39,37 +43,12 @@ resource "aws_security_group_rule" "admin_ingress" {
 resource "aws_security_group_rule" "admin_ingress_oem" {
   for_each = var.rds_databases
 
-  description       = "Permit access to ${each.key} from admin ranges"
+  description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
   type              = "ingress"
   from_port         = 5500
   to_port           = 5500
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
-  security_group_id = module.rds_security_group[each.key].this_security_group_id
-}
-
-resource "aws_security_group_rule" "rds_ingress_source_sg" {
-  for_each = local.rds_ingress_from_services
-
-  description              = each.value.description
-  type                     = "ingress"
-  from_port                = each.value.from_port
-  to_port                  = each.value.to_port
-  protocol                 = each.value.protocol
-  source_security_group_id = each.value.source_security_group_id
-  security_group_id        = module.rds_security_group[each.value.db_key].this_security_group_id
-}
-
-resource "aws_security_group_rule" "rds_egress" {
-  for_each = var.rds_databases
-
-  description       = "Allow all outbound"
-  type              = "egress"
-  from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
-  cidr_blocks       = ["0.0.0.0/0"]
-  ipv6_cidr_blocks  = ["::/0"]
   security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
