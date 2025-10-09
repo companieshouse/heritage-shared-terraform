@@ -65,6 +65,12 @@ variable "rds_cloudwatch_alarms" {
   description = "A map whose keys represent RDS instances and whose values define RDS CloudWatch Alarms configuration"
 }
 
+variable "rds_ingress_concourse" {
+  default     = []
+  description = "A list of RDS instance keys that will be configured to permit connectivity from Concourse"
+  type        = list(string)
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------

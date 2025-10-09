@@ -27,6 +27,18 @@ module "rds_security_group" {
   egress_rules = ["all-all"]
 }
 
+resource "aws_security_group_rule" "concourse_ingress" {
+  for_each = toset(var.rds_ingress_concourse)
+
+  description       = "Permit access to ${each.key} from Concourse"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
+  security_group_id = module.rds_security_group[each.key].this_security_group_id
+}
+
 module "rds_app_security_group" {
   for_each = local.rds_databases_requiring_app_access
 

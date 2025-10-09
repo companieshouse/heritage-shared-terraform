@@ -87,3 +87,7 @@ data "vault_generic_secret" "fes_rds" {
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
+
+data "aws_ec2_managed_prefix_list" "concourse" {
+  name = "shared-services-management-cidrs"
+}
