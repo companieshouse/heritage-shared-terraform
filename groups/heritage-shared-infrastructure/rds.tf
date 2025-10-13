@@ -11,17 +11,6 @@ module "rds_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, each.value.rds_onpremise_access)
-  ingress_rules       = ["oracle-db-tcp"]
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 5500
-      to_port     = 5500
-      protocol    = "tcp"
-      description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, each.value.rds_onpremise_access))
-    }
-  ]
   ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
 
   egress_rules = ["all-all"]
@@ -36,6 +25,30 @@ resource "aws_security_group_rule" "concourse_ingress" {
   to_port           = 1521
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
+  security_group_id = module.rds_security_group[each.key].this_security_group_id
+}
+
+resource "aws_security_group_rule" "admin_ingress" {
+  for_each = var.rds_databases
+
+  description       = "Permit access to ${each.key} from admin ranges"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  security_group_id = module.rds_security_group[each.key].this_security_group_id
+}
+
+resource "aws_security_group_rule" "admin_ingress_oem" {
+  for_each = var.rds_databases
+
+  description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
+  type              = "ingress"
+  from_port         = 5500
+  to_port           = 5500
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
   security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
@@ -170,9 +183,9 @@ module "rds_start_stop_schedule" {
 
   rds_schedule_enable = lookup(each.value, "rds_schedule_enable", false)
 
-  rds_instance_id     = module.rds[each.key].this_db_instance_id
-  rds_start_schedule  = lookup(each.value, "rds_start_schedule")
-  rds_stop_schedule   = lookup(each.value, "rds_stop_schedule")
+  rds_instance_id    = module.rds[each.key].this_db_instance_id
+  rds_start_schedule = lookup(each.value, "rds_start_schedule")
+  rds_stop_schedule  = lookup(each.value, "rds_stop_schedule")
 }
 
 module "rds_cloudwatch_alarms" {
@@ -180,10 +193,10 @@ module "rds_cloudwatch_alarms" {
 
   for_each = var.rds_cloudwatch_alarms
 
-  db_instance_id         = module.rds[each.key].this_db_instance_id
-  db_instance_shortname  = upper(each.key)
-  alarm_actions_enabled  = lookup(each.value, "alarm_actions_enabled")
-  alarm_name_prefix      = "Oracle RDS"
-  alarm_topic_name       = lookup(each.value, "alarm_topic_name")
-  alarm_topic_name_ooh   = lookup(each.value, "alarm_topic_name_ooh")
+  db_instance_id        = module.rds[each.key].this_db_instance_id
+  db_instance_shortname = upper(each.key)
+  alarm_actions_enabled = lookup(each.value, "alarm_actions_enabled")
+  alarm_name_prefix     = "Oracle RDS"
+  alarm_topic_name      = lookup(each.value, "alarm_topic_name")
+  alarm_topic_name_ooh  = lookup(each.value, "alarm_topic_name_ooh")
 }

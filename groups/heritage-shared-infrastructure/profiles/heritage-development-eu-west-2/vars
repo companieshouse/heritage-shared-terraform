@@ -28,10 +28,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_onpremise_access = [
-      "192.168.90.0/24",
-      "192.168.70.0/24"
-    ]
     rds_app_access = [
       "10.94.6.242/32",
     ]
@@ -68,10 +64,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_onpremise_access = [
-      "192.168.90.0/24",
-      "192.168.70.0/24"
-    ]
     rds_app_access = []
     per_instance_options = [
       {
@@ -106,10 +98,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_onpremise_access = [
-      "192.168.90.0/24",
-      "192.168.70.0/24"
-    ]
     rds_app_access = [
       "10.75.40.0/21",
       "10.75.80.0/21",
@@ -148,10 +136,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_onpremise_access = [
-      "192.168.90.0/24",
-      "192.168.70.0/24"
-    ]
     rds_app_access = []
     per_instance_options = [
       {
