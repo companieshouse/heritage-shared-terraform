@@ -64,7 +64,11 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_app_access = []
+    rds_app_access = [
+      "10.75.40.0/21",
+      "10.75.80.0/21",
+      "10.75.120.0/21"
+    ]
     per_instance_options = [
       {
         option_name = "Timezone"
