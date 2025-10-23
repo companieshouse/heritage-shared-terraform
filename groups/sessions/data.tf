@@ -82,10 +82,6 @@ data "vault_generic_secret" "sess_rds" {
   path = "applications/${var.aws_profile}/sess/rds"
 }
 
-# data "vault_generic_secret" "internal_cidrs" {
-#   path = "aws-accounts/network/internal_cidr_ranges"
-# }
-
 data "vault_generic_secret" "chs_cidrs" {
   path = "aws-accounts/network/${var.aws_account}/chs/application-subnets"
 }
