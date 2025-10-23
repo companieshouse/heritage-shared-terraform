@@ -24,13 +24,6 @@ engine_version             = "19"
 license_model              = "license-included"
 auto_minor_version_upgrade = false
 
-rds_onpremise_access = [
-  "10.65.2.0/24",
-  "10.65.66.0/24",
-  "10.65.130.0/24",
-  "192.168.70.0/24",
-  "192.168.90.0/24"
-]
 
 # RDS logging
 rds_log_exports = [

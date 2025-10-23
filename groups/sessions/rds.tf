@@ -10,16 +10,8 @@ module "rds_security_group" {
   description = "Security group for the sessions RDS database"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, var.rds_onpremise_access)
   ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
-    {
-      from_port   = 5500
-      to_port     = 5500
-      protocol    = "tcp"
-      description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access))
-    },
     {
       from_port   = "1521"
       to_port     = "1521"
@@ -74,6 +66,36 @@ module "rds_security_group" {
   ]
 
   egress_rules = ["all-all"]
+}
+
+resource "aws_security_group_rule" "admin_oracle_db" {
+  description       = "Allow Oracle DB listener from admin prefix list"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  security_group_id = module.rds_security_group.this_security_group_id
+}
+
+resource "aws_security_group_rule" "admin_oracle_em" {
+  description       = "Oracle Enterprise Manager"
+  type              = "ingress"
+  from_port         = 5500
+  to_port           = 5500
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  security_group_id = module.rds_security_group.this_security_group_id
+
+}
+resource "aws_security_group_rule" "onprem_oracle_em" {
+  description       = "Oracle Enterprise Manager from onpremise"
+  type              = "ingress"
+  from_port         = 5500
+  to_port           = 5500
+  protocol          = "tcp"
+  security_group_id = module.rds_security_group.this_security_group_id
+  cidr_blocks       = local.oracle_em_cidrs
 }
 
 # ------------------------------------------------------------------------------
