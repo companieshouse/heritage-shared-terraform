@@ -26,8 +26,6 @@ engine_version             = "19"
 license_model              = "license-included"
 auto_minor_version_upgrade = false
 
-
-
 # RDS logging
 rds_log_exports = [
   "alert",

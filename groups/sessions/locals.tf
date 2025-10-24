@@ -2,8 +2,7 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
-
-  oracle_em_cidrs = var.environment == "development" ? [] : values(data.vault_generic_secret.chs_cidrs.data)
+  chs_application_cidrs = var.environment == "development" ? [] : values(data.vault_generic_secret.chs_cidrs.data)
   sess_rds_data = data.vault_generic_secret.sess_rds.data
   accountIds    = data.vault_generic_secret.account_ids.data
 

@@ -95,7 +95,7 @@ resource "aws_security_group_rule" "onprem_oracle_em" {
   to_port           = 5500
   protocol          = "tcp"
   security_group_id = module.rds_security_group.this_security_group_id
-  cidr_blocks       = local.oracle_em_cidrs
+  cidr_blocks       = local.chs_application_cidrs
 }
 
 # ------------------------------------------------------------------------------
