@@ -88,7 +88,18 @@ resource "aws_security_group_rule" "admin_oracle_em" {
   security_group_id = module.rds_security_group.this_security_group_id
 
 }
-resource "aws_security_group_rule" "onprem_oracle_em" {
+
+resource "aws_security_group_rule" "chs_application_db" {
+  description       = "Oracle Enterprise Manager for CHS"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  security_group_id = module.rds_security_group.this_security_group_id
+  cidr_blocks       = local.chs_application_cidrs
+}
+
+resource "aws_security_group_rule" "chs_application_em" {
   description       = "Oracle Enterprise Manager from onpremise"
   type              = "ingress"
   from_port         = 5500
