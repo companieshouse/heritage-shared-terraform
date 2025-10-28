@@ -5,5 +5,5 @@ resource "aws_route53_record" "rds" {
   name    = format("%s%s", each.key, "db")
   type    = "CNAME"
   ttl     = "300"
-  records = [module.rds[each.key].this_db_instance_address]
+  records = [module.rds[each.key].db_instance_address]
 }
