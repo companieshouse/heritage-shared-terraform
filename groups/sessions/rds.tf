@@ -89,6 +89,8 @@ resource "aws_security_group_rule" "admin_oracle_em" {
 }
 
 resource "aws_security_group_rule" "chs_application_db" {
+  for_each = toset(local.chs_application_cidrs)
+
   description       = "Oracle Enterprise Manager for CHS"
   type              = "ingress"
   from_port         = 1521
@@ -99,6 +101,8 @@ resource "aws_security_group_rule" "chs_application_db" {
 }
 
 resource "aws_security_group_rule" "chs_application_em" {
+  for_each = toset(local.chs_application_cidrs)
+  
   description       = "Oracle Enterprise Manager from onpremise"
   type              = "ingress"
   from_port         = 5500
