@@ -10,7 +10,6 @@ module "rds_security_group" {
   description = "Security group for the sessions RDS database"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
       from_port   = "1521"
