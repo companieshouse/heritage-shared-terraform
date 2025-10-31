@@ -52,6 +52,18 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
   security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
+resource "aws_security_group_rule" "sub_data_a_ingress_chd" {
+  count = var.environment != "development" ? 1 : 0
+
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  description       = "Allow Oracle traffic from sub-data-a for CHD staging/live"
+  cidr_blocks       = [data.aws_subnet.data_subnets.cidr_block]
+  security_group_id = module.rds_security_group["chd"].this_security_group_id
+}
+
 module "rds_app_security_group" {
   for_each = local.rds_databases_requiring_app_access
 

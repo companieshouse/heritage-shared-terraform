@@ -12,6 +12,14 @@ data "aws_subnet_ids" "data" {
   }
 }
 
+data "aws_subnet" "data_subnets" {
+  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "tag:Name"
+    values = ["sub-data-a"]
+  }
+}
+
 data "aws_security_group" "rds_shared" {
   filter {
     name   = "group-name"
