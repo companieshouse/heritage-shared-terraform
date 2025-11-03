@@ -60,7 +60,7 @@ resource "aws_security_group_rule" "sub_data_a_ingress_chd" {
   to_port           = 1521
   protocol          = "tcp"
   description       = "Allow Oracle traffic from sub-data-a for CHD staging/live"
-  cidr_blocks       = [data.aws_subnet.data_subnets.cidr_block]
+  cidr_blocks       = [each.value]
   security_group_id = module.rds_security_group["chd"].this_security_group_id
 }
 
