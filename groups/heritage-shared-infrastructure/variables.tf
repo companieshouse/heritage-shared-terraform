@@ -71,6 +71,12 @@ variable "rds_ingress_concourse" {
   type        = list(string)
 }
 
+variable "sub_data_access" {
+  default     = false
+  description = "A boolean value indicating whether to allow sub-data-a access ingress to the RDS database"
+  type        = bool
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------

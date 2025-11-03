@@ -143,6 +143,8 @@ rds_databases = {
   }
 }
 
+sub_data_access = true
+
 # RDS Param and Option settings
 parameter_group_settings = {
   bcd = [

@@ -58,7 +58,7 @@ locals {
   chd_dba_dev_ingress_cidrs_list    = jsondecode(data.vault_generic_secret.chd_rds.data_json)["dba-dev-cidrs"]
   chdata_dba_dev_ingress_cidrs_list = jsondecode(data.vault_generic_secret.chdata_rds.data_json)["dba-dev-cidrs"]
 
-  sub_data_cidr = var.environment == "staging" || var.environment == "live" ? [data.aws_subnet.data_subnets.cidr_block] : []
+  sub_data_cidr = var.sub_data_access ? [data.aws_subnet.data_subnet.cidr_block] : []
 
   dba_dev_ingress_instances_map = {
     chd    = local.chd_dba_dev_ingress_cidrs_list,

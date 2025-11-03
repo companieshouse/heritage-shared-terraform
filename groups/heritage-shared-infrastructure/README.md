@@ -78,6 +78,7 @@ Hosts the following RDS instances as these are shared across multiple services.
 | <a name="input_rds_ingress_groups"></a> [rds\_ingress\_groups](#input\_rds\_ingress\_groups) | A map whose keys represent RDS instances and whose values are lists of strings representing security group filter patterns | `map(list(string))` | n/a | yes |
 | <a name="input_rds_start_stop_schedule"></a> [rds\_start\_stop\_schedule](#input\_rds\_start\_stop\_schedule) | A map whose keys represent RDS instances and whose values define configuration for RDS start/stop schedules | `map(map(any))` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Short version of the name of the AWS region in which resources will be administered | `string` | n/a | yes |
+| <a name="input_sub_data_access"></a> [sub\_data\_access](#input\_sub\_data\_access) | A boolean value indicating whether to allow sub-data-a access ingress to the RDS database | `bool` | `false` | no |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault - usually supplied through TF\_VARS | `string` | n/a | yes |
 | <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | Username for connecting to Vault - usually supplied through TF\_VARS | `string` | n/a | yes |
 
