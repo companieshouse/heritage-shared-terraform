@@ -53,7 +53,7 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
 }
 
 resource "aws_security_group_rule" "sub_data_a_ingress_chd" {
-  count = var.environment != "development" ? 1 : 0
+  for_each = toset(local.sub_data_cidr)
 
   type              = "ingress"
   from_port         = 1521

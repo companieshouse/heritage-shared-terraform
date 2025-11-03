@@ -12,7 +12,7 @@ locals {
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
-rds_ingress_from_services = {
+  rds_ingress_from_services = {
     "bcd" = flatten([
       for sg_data in data.aws_security_group.rds_ingress_bcd : {
         from_port                = 1521
@@ -57,6 +57,8 @@ rds_ingress_from_services = {
 
   chd_dba_dev_ingress_cidrs_list    = jsondecode(data.vault_generic_secret.chd_rds.data_json)["dba-dev-cidrs"]
   chdata_dba_dev_ingress_cidrs_list = jsondecode(data.vault_generic_secret.chdata_rds.data_json)["dba-dev-cidrs"]
+
+  sub_data_cidr = var.environment == "staging" || var.environment == "live" ? [data.aws_subnet.data_subnets.cidr_block] : []
 
   dba_dev_ingress_instances_map = {
     chd    = local.chd_dba_dev_ingress_cidrs_list,
