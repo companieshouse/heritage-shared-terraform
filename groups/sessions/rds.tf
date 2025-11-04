@@ -5,6 +5,7 @@ module "rds_security_group" {
 
   source  = "terraform-aws-modules/security-group/aws"
   version = ">= 5.0.0"
+  
 
   name        = "sgr-sessions-rds-001"
   description = "Security group for the sessions RDS database"
