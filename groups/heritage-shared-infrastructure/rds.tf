@@ -14,41 +14,45 @@ module "rds_security_group" {
   ingress_with_source_security_group_id = local.rds_ingress_from_services[each.key]
 
   egress_rules = ["all-all"]
+  tags = merge(
+    local.default_tags,
+    {
+      Name        = "sgr-${each.key}-rds-001"
+      Application = upper(each.key)
+    }
+  )
 }
 
-resource "aws_security_group_rule" "concourse_ingress" {
-  for_each = toset(var.rds_ingress_concourse)
+resource "aws_vpc_security_group_ingress_rule" "concourse_ingress" {
+  for_each          = toset(var.rds_ingress_concourse)
 
   description       = "Permit access to ${each.key} from Concourse"
-  type              = "ingress"
   from_port         = 1521
   to_port           = 1521
-  protocol          = "tcp"
-  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
+  ip_protocol       = "tcp"
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.concourse.id
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
-resource "aws_security_group_rule" "admin_ingress" {
-  for_each = var.rds_databases
+resource "aws_vpc_security_group_ingress_rule" "admin_ingress" {
+  for_each          = var.rds_databases
 
   description       = "Permit access to ${each.key} from admin ranges"
-  type              = "ingress"
   from_port         = 1521
   to_port           = 1521
-  protocol          = "tcp"
-  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  ip_protocol       = "tcp"
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.admin.id
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
-resource "aws_security_group_rule" "admin_ingress_oem" {
-  for_each = var.rds_databases
+resource "aws_vpc_security_group_ingress_rule" "admin_ingress_oem" {
+  for_each          = var.rds_databases
 
   description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
-  type              = "ingress"
   from_port         = 5500
   to_port           = 5500
-  protocol          = "tcp"
-  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  ip_protocol       = "tcp"
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.admin.id
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
@@ -66,16 +70,24 @@ module "rds_app_security_group" {
   ingress_rules       = ["oracle-db-tcp"]
 
   egress_rules = ["all-all"]
+
+  tags = merge(
+    local.default_tags,
+    {
+      Name        = "sgr-${each.key}-rds-002"
+      Application = upper(each.key)
+    }
+  )
 }
 
-resource "aws_security_group_rule" "dba_dev_ingress" {
-  for_each = local.dba_dev_ingress_rules_map
+resource "aws_vpc_security_group_ingress_rule" "dba_dev_ingress" {
+  for_each          = local.dba_dev_ingress_rules_map
 
-  type              = "ingress"
+  description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
   from_port         = 1521
   to_port           = 1521
-  protocol          = "tcp"
-  cidr_blocks       = [each.value["cidr"]]
+  ip_protocol       = "tcp"
+  cidr_ipv4         = each.value["cidr"]
   security_group_id = each.value.sg_id
 }
 
@@ -105,16 +117,16 @@ module "rds" {
   storage_encrypted          = true
   kms_key_id                 = data.aws_kms_key.rds.arn
 
-  db_name     = upper(each.key)
+  db_name  = upper(each.key)
   username = local.rds_data[each.key]["admin-username"]
   password = local.rds_data[each.key]["admin-password"]
   port     = "1521"
 
-  deletion_protection       = true
-  maintenance_window        = lookup(each.value, "rds_maintenance_window", "Mon:00:00-Mon:03:00")
-  backup_window             = lookup(each.value, "rds_backup_window", "03:00-06:00")
-  backup_retention_period   = lookup(each.value, "backup_retention_period", 7)
-  skip_final_snapshot       = "false"
+  deletion_protection              = true
+  maintenance_window               = lookup(each.value, "rds_maintenance_window", "Mon:00:00-Mon:03:00")
+  backup_window                    = lookup(each.value, "rds_backup_window", "03:00-06:00")
+  backup_retention_period          = lookup(each.value, "backup_retention_period", 7)
+  skip_final_snapshot              = "false"
   final_snapshot_identifier_prefix = each.key
 
   # Enhanced Monitoring
@@ -171,7 +183,9 @@ module "rds" {
   tags = merge(
     local.default_tags,
     {
-      ServiceTeam = "${format("%s-DBA-Support", upper(each.key))}"
+      ServiceTeam = format("%s-DBA-Support", upper(each.key))
+      Name        = join("-", ["rds", each.key, var.environment, "001"])
+      Application = upper(each.key)
     }
   )
 }

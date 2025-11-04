@@ -12,7 +12,7 @@ locals {
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
-rds_ingress_from_services = {
+  rds_ingress_from_services = {
     "bcd" = flatten([
       for sg_data in data.aws_security_group.rds_ingress_bcd : {
         from_port                = 1521
@@ -73,8 +73,11 @@ rds_ingress_from_services = {
   ]...)
 
   default_tags = {
-    Terraform = "true"
-    Region    = var.aws_region
-    Account   = var.aws_account
+    Terraform   = "true"
+    Region      = var.aws_region
+    Account     = var.aws_account
+    Environment = var.environment
+    Repository  = "https://github.com/companieshouse/heritage-shared-terraform"
+
   }
 }

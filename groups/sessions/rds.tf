@@ -18,11 +18,11 @@ module "rds_security_group" {
       to_port     = 5500
       protocol    = "tcp"
       description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access))
+      cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access)) ###FIX?
     },
     {
-      from_port   = "1521"
-      to_port     = "1521"
+      from_port   = 1521
+      to_port     = 1521
       protocol    = "tcp"
       description = "Frontend CEU"
       cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
@@ -74,6 +74,13 @@ module "rds_security_group" {
   ]
 
   egress_rules = ["all-all"]
+  tags = merge(
+    local.default_tags,
+    {
+      Name        = "sgr-sessions-rds-001"
+      Application = "sessions"
+    }
+  )
 }
 
 # ------------------------------------------------------------------------------
@@ -100,16 +107,16 @@ module "sessions_rds" {
   storage_encrypted          = true
   kms_key_id                 = data.aws_kms_key.rds.arn
 
-  db_name     = upper(var.name)
+  db_name  = upper(var.name)
   username = local.sess_rds_data["admin-username"]
   password = local.sess_rds_data["admin-password"]
   port     = "1521"
 
-  deletion_protection       = true
-  maintenance_window        = var.rds_maintenance_window
-  backup_window             = var.rds_backup_window
-  backup_retention_period   = var.backup_retention_period
-  skip_final_snapshot       = false
+  deletion_protection              = true
+  maintenance_window               = var.rds_maintenance_window
+  backup_window                    = var.rds_backup_window
+  backup_retention_period          = var.backup_retention_period
+  skip_final_snapshot              = false
   final_snapshot_identifier_prefix = var.identifier
 
   # Enhanced Monitoring
@@ -154,7 +161,8 @@ module "sessions_rds" {
   tags = merge(
     local.default_tags,
     {
-      ServiceTeam = "${upper(var.identifier)}-DBA-Support"
+      ServiceTeam = "${upper(var.identifier)}-DBA-Support",
+      Name        = join("-", ["rds", var.identifier, var.environment, "001"])
     }
   )
 }
@@ -164,18 +172,18 @@ module "rds_start_stop_schedule" {
 
   rds_schedule_enable = var.rds_schedule_enable
 
-  rds_instance_id     = module.sessions_rds.db_instance_identifier
-  rds_start_schedule  = var.rds_start_schedule
-  rds_stop_schedule   = var.rds_stop_schedule
+  rds_instance_id    = module.sessions_rds.db_instance_identifier
+  rds_start_schedule = var.rds_start_schedule
+  rds_stop_schedule  = var.rds_stop_schedule
 }
 
 module "rds_cloudwatch_alarms" {
   source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.356"
 
-  db_instance_id         = module.sessions_rds.db_instance_identifier
-  db_instance_shortname  = upper(var.name)
-  alarm_actions_enabled  = var.alarm_actions_enabled
-  alarm_name_prefix      = "Oracle RDS"
-  alarm_topic_name       = var.alarm_topic_name
-  alarm_topic_name_ooh   = var.alarm_topic_name_ooh
+  db_instance_id        = module.sessions_rds.db_instance_identifier
+  db_instance_shortname = upper(var.name)
+  alarm_actions_enabled = var.alarm_actions_enabled
+  alarm_name_prefix     = "Oracle RDS"
+  alarm_topic_name      = var.alarm_topic_name
+  alarm_topic_name_ooh  = var.alarm_topic_name_ooh
 }

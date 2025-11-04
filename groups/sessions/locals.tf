@@ -11,8 +11,10 @@ locals {
   ceu_fe_subnet_cidrs = jsondecode(data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-web-subnets-cidrs"])
 
   default_tags = {
-    Terraform = "true"
-    Region    = var.aws_region
-    Account   = var.aws_account
+    Terraform   = "true"
+    Region      = var.aws_region
+    Account     = var.aws_account
+    Environment = var.environment
+    Repository  = "https://github.com/companieshouse/heritage-shared-terraform"
   }
 }
