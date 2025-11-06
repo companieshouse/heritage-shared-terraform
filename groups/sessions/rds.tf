@@ -4,7 +4,8 @@
 module "rds_security_group" {
 
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 3.0"
+  version = ">= 5.0.0"
+
 
   name        = "sgr-sessions-rds-001"
   description = "Security group for the sessions RDS database"
@@ -65,6 +66,13 @@ module "rds_security_group" {
   ]
 
   egress_rules = ["all-all"]
+  tags = merge(
+    local.default_tags,
+    {
+      Name        = "sgr-sessions-rds-001"
+      Application = "sessions"
+    }
+  )
 }
 
 resource "aws_security_group_rule" "admin_oracle_db" {
@@ -117,7 +125,7 @@ resource "aws_security_group_rule" "chs_application_em" {
 # ------------------------------------------------------------------------------
 module "sessions_rds" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "2.23.0" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
+  version = "6.13.1" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
 
   create_db_parameter_group = "true"
   create_db_subnet_group    = "true"
@@ -136,17 +144,17 @@ module "sessions_rds" {
   storage_encrypted          = true
   kms_key_id                 = data.aws_kms_key.rds.arn
 
-  name     = upper(var.name)
+  db_name  = upper(var.name)
   username = local.sess_rds_data["admin-username"]
   password = local.sess_rds_data["admin-password"]
   port     = "1521"
 
-  deletion_protection       = true
-  maintenance_window        = var.rds_maintenance_window
-  backup_window             = var.rds_backup_window
-  backup_retention_period   = var.backup_retention_period
-  skip_final_snapshot       = "false"
-  final_snapshot_identifier = "${var.identifier}-final-deletion-snapshot"
+  deletion_protection              = true
+  maintenance_window               = var.rds_maintenance_window
+  backup_window                    = var.rds_backup_window
+  backup_retention_period          = var.backup_retention_period
+  skip_final_snapshot              = false
+  final_snapshot_identifier_prefix = var.identifier
 
   # Enhanced Monitoring
   monitoring_interval             = "30"
@@ -161,12 +169,12 @@ module "sessions_rds" {
 
   # RDS Security Group
   vpc_security_group_ids = [
-    module.rds_security_group.this_security_group_id,
+    module.rds_security_group.security_group_id,
     data.aws_security_group.rds_shared.id
   ]
 
   # DB subnet group
-  subnet_ids = data.aws_subnet_ids.data.ids
+  subnet_ids = data.aws_subnets.data.ids
 
   # DB Parameter group
   family = join("-", ["oracle-se2", var.major_engine_version])
@@ -177,7 +185,7 @@ module "sessions_rds" {
     {
       option_name                    = "OEM"
       port                           = "5500"
-      vpc_security_group_memberships = [module.rds_security_group.this_security_group_id]
+      vpc_security_group_memberships = [module.rds_security_group.security_group_id]
     }
   ], var.option_group_settings)
 
@@ -189,29 +197,30 @@ module "sessions_rds" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.identifier)}-DBA-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.identifier)}-DBA-Support",
+      Name        = join("-", ["rds", var.identifier, var.environment, "001"])
+    }
   )
 }
 
 module "rds_start_stop_schedule" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule?ref=tags/1.0.131"
+  source = "git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule?ref=tags/1.0.356"
 
   rds_schedule_enable = var.rds_schedule_enable
 
-  rds_instance_id     = module.sessions_rds.this_db_instance_id
-  rds_start_schedule  = var.rds_start_schedule
-  rds_stop_schedule   = var.rds_stop_schedule
+  rds_instance_id    = module.sessions_rds.db_instance_identifier
+  rds_start_schedule = var.rds_start_schedule
+  rds_stop_schedule  = var.rds_stop_schedule
 }
 
 module "rds_cloudwatch_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.173"
+  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.356"
 
-  db_instance_id         = module.sessions_rds.this_db_instance_id
-  db_instance_shortname  = upper(var.name)
-  alarm_actions_enabled  = var.alarm_actions_enabled
-  alarm_name_prefix      = "Oracle RDS"
-  alarm_topic_name       = var.alarm_topic_name
-  alarm_topic_name_ooh   = var.alarm_topic_name_ooh
+  db_instance_id        = module.sessions_rds.db_instance_identifier
+  db_instance_shortname = upper(var.name)
+  alarm_actions_enabled = var.alarm_actions_enabled
+  alarm_name_prefix     = "Oracle RDS"
+  alarm_topic_name      = var.alarm_topic_name
+  alarm_topic_name_ooh  = var.alarm_topic_name_ooh
 }
