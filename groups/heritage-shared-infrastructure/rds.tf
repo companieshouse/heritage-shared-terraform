@@ -23,36 +23,39 @@ module "rds_security_group" {
   )
 }
 
-resource "aws_vpc_security_group_ingress_rule" "concourse_ingress" {
-  for_each          = toset(var.rds_ingress_concourse)
+resource "aws_security_group_rule" "concourse_ingress" {
+  for_each = toset(var.rds_ingress_concourse)
 
   description       = "Permit access to ${each.key} from Concourse"
+  type              = "ingress"
   from_port         = 1521
   to_port           = 1521
-  ip_protocol       = "tcp"
-  prefix_list_id    = data.aws_ec2_managed_prefix_list.concourse.id
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "admin_ingress" {
-  for_each          = var.rds_databases
+resource "aws_security_group_rule" "admin_ingress" {
+  for_each = var.rds_databases
 
   description       = "Permit access to ${each.key} from admin ranges"
+  type              = "ingress"
   from_port         = 1521
   to_port           = 1521
-  ip_protocol       = "tcp"
-  prefix_list_id    = data.aws_ec2_managed_prefix_list.admin.id
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "admin_ingress_oem" {
-  for_each          = var.rds_databases
+resource "aws_security_group_rule" "admin_ingress_oem" {
+  for_each = var.rds_databases
 
   description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
+  type              = "ingress"
   from_port         = 5500
   to_port           = 5500
-  ip_protocol       = "tcp"
-  prefix_list_id    = data.aws_ec2_managed_prefix_list.admin.id
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
   security_group_id = module.rds_security_group[each.key].security_group_id
 }
 
@@ -80,14 +83,14 @@ module "rds_app_security_group" {
   )
 }
 
-resource "aws_vpc_security_group_ingress_rule" "dba_dev_ingress" {
-  for_each          = local.dba_dev_ingress_rules_map
+resource "aws_security_group_rule" "dba_dev_ingress" {
+  for_each = local.dba_dev_ingress_rules_map
 
-  description       = "Permit access to Oracle Enterprise Manager ${each.key} from admin ranges"
+  type              = "ingress"
   from_port         = 1521
   to_port           = 1521
-  ip_protocol       = "tcp"
-  cidr_ipv4         = each.value["cidr"]
+  protocol          = "tcp"
+  cidr_blocks       = [each.value["cidr"]]
   security_group_id = each.value.sg_id
 }
 
