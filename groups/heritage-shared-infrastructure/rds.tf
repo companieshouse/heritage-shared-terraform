@@ -206,7 +206,7 @@ module "rds_start_stop_schedule" {
 }
 
 module "rds_cloudwatch_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.356"
+  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.195"
 
   for_each = var.rds_cloudwatch_alarms
 

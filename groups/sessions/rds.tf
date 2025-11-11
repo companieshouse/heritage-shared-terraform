@@ -82,7 +82,7 @@ resource "aws_security_group_rule" "admin_oracle_db" {
   to_port           = 1521
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
-  security_group_id = module.rds_security_group.this_security_group_id
+  security_group_id = module.rds_security_group.security_group_id
 }
 
 resource "aws_security_group_rule" "admin_oracle_em" {
@@ -92,7 +92,7 @@ resource "aws_security_group_rule" "admin_oracle_em" {
   to_port           = 5500
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
-  security_group_id = module.rds_security_group.this_security_group_id
+  security_group_id = module.rds_security_group.security_group_id
 
 }
 
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "chs_application_db" {
   from_port         = 1521
   to_port           = 1521
   protocol          = "tcp"
-  security_group_id = module.rds_security_group.this_security_group_id
+  security_group_id = module.rds_security_group.security_group_id
   cidr_blocks       = local.chs_application_cidrs
 }
 
@@ -116,7 +116,7 @@ resource "aws_security_group_rule" "chs_application_em" {
   from_port         = 5500
   to_port           = 5500
   protocol          = "tcp"
-  security_group_id = module.rds_security_group.this_security_group_id
+  security_group_id = module.rds_security_group.security_group_id
   cidr_blocks       = local.chs_application_cidrs
 }
 
@@ -215,7 +215,7 @@ module "rds_start_stop_schedule" {
 }
 
 module "rds_cloudwatch_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.356"
+  source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.195"
 
   db_instance_id        = module.sessions_rds.db_instance_identifier
   db_instance_shortname = upper(var.name)
