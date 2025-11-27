@@ -29,7 +29,7 @@ Hosts the following RDS instances as these are shared across multiple services.
 |------|--------|---------|
 | <a name="module_rds"></a> [rds](#module\_rds) | terraform-aws-modules/rds/aws | 6.13.1 |
 | <a name="module_rds_app_security_group"></a> [rds\_app\_security\_group](#module\_rds\_app\_security\_group) | terraform-aws-modules/security-group/aws | >= 5.0.0 |
-| <a name="module_rds_cloudwatch_alarms"></a> [rds\_cloudwatch\_alarms](#module\_rds\_cloudwatch\_alarms) | git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms | tags/1.0.356 |
+| <a name="module_rds_cloudwatch_alarms"></a> [rds\_cloudwatch\_alarms](#module\_rds\_cloudwatch\_alarms) | git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms | tags/1.0.195 |
 | <a name="module_rds_security_group"></a> [rds\_security\_group](#module\_rds\_security\_group) | terraform-aws-modules/security-group/aws | >= 5.0.0 |
 | <a name="module_rds_start_stop_schedule"></a> [rds\_start\_stop\_schedule](#module\_rds\_start\_stop\_schedule) | git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule | tags/1.0.356 |
 
@@ -86,4 +86,3 @@ Hosts the following RDS instances as these are shared across multiple services.
 | Name | Description |
 |------|-------------|
 | <a name="output_rds_addresses"></a> [rds\_addresses](#output\_rds\_addresses) | n/a |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
