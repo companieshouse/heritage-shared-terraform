@@ -105,7 +105,7 @@ resource "aws_security_group_rule" "chs_application_db" {
   to_port           = 1521
   protocol          = "tcp"
   security_group_id = module.rds_security_group.security_group_id
-  cidr_blocks       = local.chs_application_cidrs
+  cidr_blocks       = [each.value]
 }
 
 resource "aws_security_group_rule" "chs_application_em" {
@@ -117,7 +117,7 @@ resource "aws_security_group_rule" "chs_application_em" {
   to_port           = 5500
   protocol          = "tcp"
   security_group_id = module.rds_security_group.security_group_id
-  cidr_blocks       = local.chs_application_cidrs
+  cidr_blocks       = [each.value]
 }
 
 # ------------------------------------------------------------------------------
