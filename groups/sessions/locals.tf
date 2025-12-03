@@ -15,6 +15,6 @@ locals {
     Region      = var.aws_region
     Account     = var.aws_account
     Environment = var.environment
-    Repository  = "https://github.com/companieshouse/heritage-shared-terraform"
+    Repository  = "heritage-shared-terraform"
   }
 }
