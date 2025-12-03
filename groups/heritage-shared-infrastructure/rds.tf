@@ -103,8 +103,10 @@ module "rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "6.13.1" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
 
-  create_db_parameter_group = "true"
-  create_db_subnet_group    = "true"
+  create_db_parameter_group = true
+  create_db_subnet_group    = true
+  option_group_description = "Option group for ${join("-", ["rds", each.key, var.environment, "001"])}"
+  parameter_group_description = "Database parameter group for ${join("-", ["rds", each.key, var.environment, "001"])}"
 
   identifier                 = join("-", ["rds", each.key, var.environment, "001"])
   engine                     = lookup(each.value, "engine", "oracle-se2")
@@ -124,12 +126,13 @@ module "rds" {
   username = local.rds_data[each.key]["admin-username"]
   password = local.rds_data[each.key]["admin-password"]
   port     = "1521"
+  manage_master_user_password = false
 
   deletion_protection              = true
   maintenance_window               = lookup(each.value, "rds_maintenance_window", "Mon:00:00-Mon:03:00")
   backup_window                    = lookup(each.value, "rds_backup_window", "03:00-06:00")
   backup_retention_period          = lookup(each.value, "backup_retention_period", 7)
-  skip_final_snapshot              = "false"
+  skip_final_snapshot              = false
   final_snapshot_identifier_prefix = each.key
 
   # Enhanced Monitoring

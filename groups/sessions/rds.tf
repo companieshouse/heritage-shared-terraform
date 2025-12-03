@@ -127,8 +127,8 @@ module "sessions_rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "6.13.1" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
 
-  create_db_parameter_group = "true"
-  create_db_subnet_group    = "true"
+  create_db_parameter_group = true
+  create_db_subnet_group    = true
 
   identifier                 = join("-", ["rds", var.identifier, var.environment, "001"])
   engine                     = "oracle-se2"
@@ -148,6 +148,7 @@ module "sessions_rds" {
   username = local.sess_rds_data["admin-username"]
   password = local.sess_rds_data["admin-password"]
   port     = "1521"
+  manage_master_user_password = false
 
   deletion_protection              = true
   maintenance_window               = var.rds_maintenance_window
@@ -155,6 +156,8 @@ module "sessions_rds" {
   backup_retention_period          = var.backup_retention_period
   skip_final_snapshot              = false
   final_snapshot_identifier_prefix = var.identifier
+  option_group_description = "Option group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
+  parameter_group_description = "Database parameter group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
 
   # Enhanced Monitoring
   monitoring_interval             = "30"
