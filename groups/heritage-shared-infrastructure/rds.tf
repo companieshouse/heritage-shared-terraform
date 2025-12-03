@@ -133,7 +133,6 @@ module "rds" {
   backup_window                    = lookup(each.value, "rds_backup_window", "03:00-06:00")
   backup_retention_period          = lookup(each.value, "backup_retention_period", 7)
   skip_final_snapshot              = false
-  final_snapshot_identifier_prefix = each.key
 
   # Enhanced Monitoring
   monitoring_interval             = "30"

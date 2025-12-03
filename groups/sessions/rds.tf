@@ -155,7 +155,6 @@ module "sessions_rds" {
   backup_window                    = var.rds_backup_window
   backup_retention_period          = var.backup_retention_period
   skip_final_snapshot              = false
-  final_snapshot_identifier_prefix = var.identifier
   option_group_description = "Option group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
   parameter_group_description = "Database parameter group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
 
