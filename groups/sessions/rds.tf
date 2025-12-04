@@ -157,6 +157,7 @@ module "sessions_rds" {
   skip_final_snapshot              = false
   option_group_description = "Option group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
   parameter_group_description = "Database parameter group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
+  db_subnet_group_description = "Database subnet group for ${join("-", ["rds", var.identifier, var.environment, "001"])}"
 
   # Enhanced Monitoring
   monitoring_interval             = "30"

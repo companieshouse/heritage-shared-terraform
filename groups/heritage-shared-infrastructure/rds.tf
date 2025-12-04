@@ -107,6 +107,7 @@ module "rds" {
   create_db_subnet_group    = true
   option_group_description = "Option group for ${join("-", ["rds", each.key, var.environment, "001"])}"
   parameter_group_description = "Database parameter group for ${join("-", ["rds", each.key, var.environment, "001"])}"
+  db_subnet_group_description = "Database subnet group for ${join("-", ["rds", each.key, var.environment, "001"])}"
 
   identifier                 = join("-", ["rds", each.key, var.environment, "001"])
   engine                     = lookup(each.value, "engine", "oracle-se2")
