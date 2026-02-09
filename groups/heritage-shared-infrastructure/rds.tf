@@ -69,7 +69,8 @@ module "rds_app_security_group" {
   description = format("Security group for the %s RDS database", upper(each.key))
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(each.value.rds_app_access)
+  # ingress_cidr_blocks = concat(each.value.rds_app_access)
+  ingress_cidr_blocks = each.value
   ingress_rules       = ["oracle-db-tcp"]
 
   egress_rules = ["all-all"]

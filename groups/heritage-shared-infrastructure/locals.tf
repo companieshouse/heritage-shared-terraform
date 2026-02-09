@@ -51,8 +51,31 @@ locals {
     ])
   }
 
+  # rds_databases_requiring_app_access = {
+  #   for key, value in var.rds_databases : key => value if length(value.rds_app_access) > 0
+  # }
+
+  # rds_app_access_map = {
+  #   bcd    = jsondecode(nonsensitive(data.vault_generic_secret.bcd_rds.data))["rds_app_access"]
+  #   chdata = jsondecode(nonsensitive(data.vault_generic_secret.chdata_rds.data))["rds_app_access"]
+  #   chd    = jsondecode(nonsensitive(data.vault_generic_secret.chd_rds.data))["rds_app_access"]
+  #   cics   = jsondecode(nonsensitive(data.vault_generic_secret.cics_rds.data))["rds_app_access"]
+  #   fes    = jsondecode(nonsensitive(data.vault_generic_secret.fes_rds.data))["rds_app_access"]
+  # }
+  # rds_databases_requiring_app_access = {
+  #   for key, value in local.rds_app_access_map : key => value if length(value) > 0
+  # }
+
+  rds_app_access_map = {
+    bcd    = jsondecode(nonsensitive(data.vault_generic_secret.bcd_rds.data["rds_app_access"]))
+    chdata = jsondecode(nonsensitive(data.vault_generic_secret.chdata_rds.data["rds_app_access"]))
+    chd    = jsondecode(nonsensitive(data.vault_generic_secret.chd_rds.data["rds_app_access"]))
+    cics   = jsondecode(nonsensitive(data.vault_generic_secret.cics_rds.data["rds_app_access"]))
+  }
+
   rds_databases_requiring_app_access = {
-    for key, value in var.rds_databases : key => value if length(value.rds_app_access) > 0
+    for key, value in local.rds_app_access_map : key => value
+    if length(value) > 0
   }
 
   chd_dba_dev_ingress_cidrs_list    = jsondecode(nonsensitive(data.vault_generic_secret.chd_rds.data_json))["dba-dev-cidrs"]
