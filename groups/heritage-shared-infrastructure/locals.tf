@@ -13,7 +13,7 @@ locals {
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
 rds_ingress_from_services = {
-    "bcd" = flatten([
+    "bcd" = length(var.rds_ingress_groups["bcd"]) > 0 ? flatten([
       for sg_data in data.aws_security_group.rds_ingress_bcd : {
         from_port                = 1521
         to_port                  = 1521
@@ -21,8 +21,8 @@ rds_ingress_from_services = {
         description              = "Access from ${sg_data.tags.Name}"
         source_security_group_id = sg_data.id
       }
-    ])
-    "chdata" = flatten([
+    ]) : []
+    "chdata" = length(var.rds_ingress_groups["chdata"]) > 0 ? flatten([
       for sg_data in data.aws_security_group.rds_ingress_chdata : {
         from_port                = 1521
         to_port                  = 1521
@@ -30,8 +30,8 @@ rds_ingress_from_services = {
         description              = "Access from ${sg_data.tags.Name}"
         source_security_group_id = sg_data.id
       }
-    ])
-    "chd" = flatten([
+    ]) : []
+    "chd" = length(var.rds_ingress_groups["chd"]) > 0 ? flatten([
       for sg_data in data.aws_security_group.rds_ingress_chd : {
         from_port                = 1521
         to_port                  = 1521
@@ -39,8 +39,8 @@ rds_ingress_from_services = {
         description              = "Access from ${sg_data.tags.Name}"
         source_security_group_id = sg_data.id
       }
-    ])
-    "cics" = flatten([
+    ]) : []
+    "cics" = length(var.rds_ingress_groups["cics"]) > 0 ? flatten([
       for sg_data in data.aws_security_group.rds_ingress_cics : {
         from_port                = 1521
         to_port                  = 1521
@@ -48,7 +48,7 @@ rds_ingress_from_services = {
         description              = "Access from ${sg_data.tags.Name}"
         source_security_group_id = sg_data.id
       }
-    ])
+    ]) : []
   }
 
   rds_databases_requiring_app_access = {
