@@ -482,9 +482,9 @@ rds_ingress_groups = {
     "sgr-chd-bep-asg*",
     "sgr-chd-fe-asg*"
   ],
-  cics = [
-    "sgr-cics-asg*"
-  ]
+  # cics = [
+  # "sgr-cics-asg*"
+  #]
 }
 
 rds_ingress_concourse = [
