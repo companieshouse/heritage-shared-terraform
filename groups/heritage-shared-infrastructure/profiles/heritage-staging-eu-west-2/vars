@@ -476,9 +476,7 @@ rds_ingress_groups = {
     "sgr-chips-oltp-db*",
     "sgr-chips-rep-db*"
   ],
-  cics = [
-    "sgr-cics-asg*"
-  ]
+  cics = []
 }
 
 rds_start_stop_schedule = {
