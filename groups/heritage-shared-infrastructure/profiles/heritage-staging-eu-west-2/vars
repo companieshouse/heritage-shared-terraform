@@ -27,7 +27,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -58,11 +57,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_app_access = [
-      "10.65.2.0/24",
-      "10.65.66.0/24",
-      "10.65.130.0/24"
-    ]
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -93,11 +87,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_app_access = [
-      "10.65.2.0/24",
-      "10.65.66.0/24",
-      "10.65.130.0/24"
-    ]
     per_instance_options = [
       {
         option_name = "Timezone"
@@ -128,7 +117,6 @@ rds_databases = {
           "listener",
           "trace"
     ],
-    rds_app_access = []
     per_instance_options = [
       {
         option_name = "Timezone"

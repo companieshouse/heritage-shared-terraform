@@ -51,12 +51,20 @@ rds_ingress_from_services = {
     ]) : []
   }
 
-  rds_databases_requiring_app_access = {
-    for key, value in var.rds_databases : key => value if length(value.rds_app_access) > 0
+  rds_app_access_map = {
+    bcd    = jsondecode(nonsensitive(data.vault_generic_secret.bcd_rds.data["rds_app_access"]))
+    chdata = jsondecode(nonsensitive(data.vault_generic_secret.chdata_rds.data["rds_app_access"]))
+    chd    = jsondecode(nonsensitive(data.vault_generic_secret.chd_rds.data["rds_app_access"]))
+    cics   = jsondecode(nonsensitive(data.vault_generic_secret.cics_rds.data["rds_app_access"]))
   }
 
-  chd_dba_dev_ingress_cidrs_list    = jsondecode(data.vault_generic_secret.chd_rds.data_json)["dba-dev-cidrs"]
-  chdata_dba_dev_ingress_cidrs_list = jsondecode(data.vault_generic_secret.chdata_rds.data_json)["dba-dev-cidrs"]
+  rds_databases_requiring_app_access = {
+    for key, value in local.rds_app_access_map : key => value
+    if length(value) > 0
+  }
+
+  chd_dba_dev_ingress_cidrs_list    = jsondecode(nonsensitive(data.vault_generic_secret.chd_rds.data_json))["dba-dev-cidrs"]
+  chdata_dba_dev_ingress_cidrs_list = jsondecode(nonsensitive(data.vault_generic_secret.chdata_rds.data_json))["dba-dev-cidrs"]
 
   dba_dev_ingress_instances_map = {
     chd    = local.chd_dba_dev_ingress_cidrs_list,
@@ -67,14 +75,17 @@ rds_ingress_from_services = {
     for instance, cidrs in local.dba_dev_ingress_instances_map : {
       for idx, cidr in cidrs : "${instance}_${idx}" => {
         cidr  = cidr
-        sg_id = module.rds_security_group[instance].this_security_group_id
+        sg_id = module.rds_security_group[instance].security_group_id
       }
     }
   ]...)
 
   default_tags = {
-    Terraform = "true"
-    Region    = var.aws_region
-    Account   = var.aws_account
+    Terraform   = "true"
+    Region      = var.aws_region
+    Account     = var.aws_account
+    Environment = var.environment
+    Repository  = "heritage-shared-terraform"
+
   }
 }

@@ -70,16 +70,3 @@ variable "rds_ingress_concourse" {
   description = "A list of RDS instance keys that will be configured to permit connectivity from Concourse"
   type        = list(string)
 }
-
-# ------------------------------------------------------------------------------
-# Vault Variables
-# ------------------------------------------------------------------------------
-variable "vault_username" {
-  type        = string
-  description = "Username for connecting to Vault - usually supplied through TF_VARS"
-}
-
-variable "vault_password" {
-  type        = string
-  description = "Password for connecting to Vault - usually supplied through TF_VARS"
-}
