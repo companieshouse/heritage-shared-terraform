@@ -52,21 +52,6 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
   security_group_id = module.rds_security_group[each.key].this_security_group_id
 }
 
-resource "aws_security_group_rule" "chips_db_oracle_ingress_1521" {
-  for_each = var.rds_databases
-  
-  description                  = "Allow Oracle connecitvity from dataguard instance"
-  type                         = "ingress"
-  security_group_id = module.rds_security_group[each.key].this_security_group_id
-  # security_group_id            = module.rds_security_group.sgr-bcd-rds-001.this_security_group_id
-  source_security_group_id     = data.aws_security_group.chips_db.id
-  protocol                     = "tcp"
-  from_port                    = 1521
-  to_port                      = 1521
-}
-
-
-
 module "rds_app_security_group" {
   for_each = local.rds_databases_requiring_app_access
 
