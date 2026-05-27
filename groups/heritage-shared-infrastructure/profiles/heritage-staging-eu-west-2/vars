@@ -457,7 +457,8 @@ rds_ingress_groups = {
     "sgr-ewf-fe-asg*",
     "sgr-admin-sites-asg*",
     "sgr-chips-oltp-db*",
-    "sgr-chips-rep-db*"
+    "sgr-chips-rep-db*",
+    "staging-chips-db",
   ],
   chdata = [
     "sgr-xml-fe-asg*",
