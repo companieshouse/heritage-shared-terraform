@@ -51,6 +51,13 @@ data "aws_security_group" "rds_ingress_cics" {
   }
 }
 
+data "aws_security_group" "chips_db" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.environment}-chips-db"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
