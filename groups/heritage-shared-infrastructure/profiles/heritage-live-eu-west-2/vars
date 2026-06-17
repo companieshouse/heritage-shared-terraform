@@ -461,7 +461,8 @@ rds_ingress_groups = {
     "ewf-frontend-tuxedo*",
     "sgr-chd-bep-asg*",
     "sgr-chd-fe-asg*",
-    "sgr-chips-oltp-db*"
+    "sgr-chips-oltp-db*",
+    "sgr-admin-sites-asg*"
   ],
   cics = [
     "sgr-windows-workloads-bus-obj-1-server*"

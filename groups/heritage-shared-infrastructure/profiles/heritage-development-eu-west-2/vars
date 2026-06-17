@@ -466,7 +466,8 @@ rds_ingress_groups = {
     "sgr-ewf-bep-asg*",
     "ewf-frontend-tuxedo*",
     "sgr-chd-bep-asg*",
-    "sgr-chd-fe-asg*"
+    "sgr-chd-fe-asg*",
+    "sgr-admin-sites-asg*"
   ],
   cics = []
 }
